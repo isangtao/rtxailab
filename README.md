@@ -36,7 +36,7 @@
   * Ref: https://ollama.com/
   * Available for Linux, Mac and Windows and includes OpenAI API support. The Linux install command is shown below.
   * ```curl -fsSL https://ollama.com/install.sh | sh```
-* Download ollama models
+* Download local LLMs
   * ```ollama pull tinyllama```
   * ```ollama pull solar```
   * ```ollama pull qwen```
