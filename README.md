@@ -8,18 +8,19 @@
 * This application combines the following modes into one UI.
   * Model comparison
   * Internet Search
-  * Agents/Personas
+  * Agents i.e. Personas
   * Image Generation
   * Vision
   * Voice Cloning
   * RAG (TBD)
   * STT - LLM - TTS (TBD)
   * T2V (TBD)
+  * Text-to-3D Asset (TBD)
   * Function Calling (TBD)
   * Motion generation (TBD)
   * AI Driven Physics (TBD)
   * AI World Rendering (TBD)
-  * Isang Tao i.e. one-person dev team (TBD)
+  * Isang Tao i.e. One-person dev team employing true AI agents (TBD)
 * This application has been developed and tested on Ubuntu. It should work on Windows and Mac natively although these have not been tested.
 ## Setup:
 * Install CUDA
