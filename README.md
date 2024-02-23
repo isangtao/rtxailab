@@ -15,6 +15,7 @@
   * Function Calling (TBD)
   * Motion generation (TBD)
   * AI Driven Physics (TBD)
+  * AI World Rendering (TBD)
   * Isang Tao i.e. one-person dev team (TBD)
 
 **Please see LLM_POC_Overview_1.0.pdf for details**
