@@ -17,6 +17,6 @@
   * AI Driven Physics (TBD)
   * AI World Rendering (TBD)
   * Isang Tao i.e. one-person dev team (TBD)
-## Screenshot
-![RTX AI Lab Screenshot](https://github.com/isangtao/rtxailab/blob/main/Screenshot%20from%202024-02-22%2020-10-16.png?raw=true)
 **Please see LLM_POC_Overview_1.0.pdf for details**
+![RTX AI Lab Screenshot](https://github.com/isangtao/rtxailab/blob/main/Screenshot%20from%202024-02-22%2020-10-16.png?raw=true)
+
