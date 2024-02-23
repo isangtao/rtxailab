@@ -1,6 +1,6 @@
 # RTX AI LAB
 ## Objective
-* The objective is to provide an environment where researchers can easily compare and combine models to develop new innovations quickly.
+* The objective is to provide an environment where researchers and developers can easily experiment with, compare and combine models to create new innovations quickly.
 ## Description
 * This application combines the following modes into one UI.
   * Model comparison
