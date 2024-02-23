@@ -30,7 +30,7 @@
   * ```source ai/bin/activate```
 * Install dependencies 
   * ```pip install streamlit ollama openai duckduckgo_search streamlit-keyup diffusers torch transformers tts```
-* Install Ollama
+* Install Ollama (Available for Linux, Mac and Windows. Has OpenAI API support. Linux install shown below)
   * Ref: https://ollama.com/
   * ```curl -fsSL https://ollama.com/install.sh | sh```
   * ```ollama pull tinyllama, solar, qwen & llava```
