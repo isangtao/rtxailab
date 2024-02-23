@@ -20,7 +20,7 @@
   * AI Driven Physics (TBD)
   * AI World Rendering (TBD)
   * Isang Tao i.e. one-person dev team (TBD)
-* This application has been developed and tested on Ubuntu. It should work on Windows and Mac natively althought this has not been tested.
+* This application has been developed and tested on Ubuntu. It should work on Windows and Mac natively although these have not been tested.
 ## Setup:
 * Install CUDA
   * Ref: https://developer.nvidia.com/cuda-downloads
