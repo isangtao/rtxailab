@@ -1,8 +1,9 @@
 # RTX AI LAB
 ## Screenshot
 ![RTX AI Lab Screenshot](https://github.com/isangtao/rtxailab/blob/main/Screenshot%20from%202024-02-22%2020-10-16.png?raw=true)
-## Objective
-* The objective is to provide an environment where researchers and developers can easily experiment with, compare and combine models to create new innovations quickly.
+## Objectives
+* to provide an environment where researchers can easily experiment with, compare and combine models to create new innovations quickly.
+* to provide the minimal raw code for developers to copy and chain together in their own applications. (VSCode:Continue&CodeLlama Recommended.)
 * [Please see LLM_POC_Overview_1.0.pdf for details](https://github.com/isangtao/rtxailab/blob/main/LLM_POC_Overview_1.0.pdf)
 ## Description
 * This application combines the following modes into one UI.
