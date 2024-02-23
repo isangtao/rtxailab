@@ -3,7 +3,7 @@
 ![RTX AI Lab Screenshot](https://github.com/isangtao/rtxailab/blob/main/Screenshot%20from%202024-02-22%2020-10-16.png?raw=true)
 ## Objectives
 * to provide an environment where researchers can easily experiment with, compare and combine models to create new innovations quickly.
-* to provide minimalist source code for developers to copy and chain together in their own applications. (Btw, I recommend VSCode: Continue & Llama Coder.)
+* to provide minimalist source code for developers to copy and chain together in their own applications.
 * [Please see LLM_POC_Overview_1.0.pdf for details](https://github.com/isangtao/rtxailab/blob/main/LLM_POC_Overview_1.0.pdf)
 ## Description
 * This application combines the following modes into one UI.
