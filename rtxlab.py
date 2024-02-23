@@ -50,8 +50,6 @@ def set_llm():
         model = st.radio ("Models", ('tinyllama', 'solar', 'qwen'))
     if provider == 'openrouter':
         api_key = st.text_input("Enter your OpenRouter key","")
-        if api_key == "":
-            api_key = "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" # Allan's key
         model = st.radio ("Models", ('mistralai/mistral-7b-instruct', 'huggingfaceh4/zephyr-7b-beta', 'openchat/openchat-7b'))
     max_tokens = st.slider("Max Tokens", 100, 8192, 512, help = "Configures the maximum number of tokens in the generated response.")
     temp = st.slider("Temperature", 0.0, 1.0, 0.5, help = "Large language models use probability to construct the words in a sequence. For any given sequence, there is a probability distribution of options for the next word in the sequence. When you set the temperature closer to zero, the model tends to select the higher-probability words. When you set the temperature further away from zero, the model may select a lower-probability word. In technical terms, the temperature modulates the probability density function for the next tokens, implementing the temperature sampling technique. This parameter can deepen or flatten the density function curve. A lower value results in a steeper curve with more deterministic responses, and a higher value results in a flatter curve with more random responses.")
