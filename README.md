@@ -26,8 +26,9 @@
 * Install CUDA
   * Ref: https://developer.nvidia.com/cuda-downloads
 * Create and activate a new python environment
-  * ```python -m venv ai```
-  * ```source ai/bin/activate```
+  * ```python -m venv rtxailab```
+  * ```source rtxailab/bin/activate```
+  * You can also use conda if that is your preference.
 * Install dependencies 
   * ```pip install streamlit ollama openai duckduckgo_search streamlit-keyup diffusers torch transformers tts```
 * Install Ollama
