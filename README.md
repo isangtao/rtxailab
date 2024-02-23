@@ -20,11 +20,11 @@
   * AI Driven Physics (TBD)
   * AI World Rendering (TBD)
   * Isang Tao i.e. one-person dev team (TBD)
-* This application works on Ubuntu. It should work on Windows and Mac natively althought this has not been tested.
+* This application has been developed and tested on Ubuntu. It should work on Windows and Mac natively althought this has not been tested.
 ## Setup:
 * Install CUDA
   * Ref: https://developer.nvidia.com/cuda-downloads
-* Create python environment
+* Create and activate a new python environment
   * ```python -m venv ai```
   * ```source ai/bin/activate```
 * Install dependencies 
@@ -34,4 +34,4 @@
   * ```curl -fsSL https://ollama.com/install.sh | sh```
   * ```ollama pull tinyllama, solar, qwen & llava```
 * Run application
-  * ``` sh streamlit run rtxlab.py```
+  * ```streamlit run rtxlab.py```
