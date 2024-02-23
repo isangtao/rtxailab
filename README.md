@@ -43,4 +43,4 @@
   * ```ollama pull qwen```
   * ```ollama pull llava```
 * Run application
-  * ```streamlit run rtxlab.py```
+  * ```streamlit run rtxailab.py```
