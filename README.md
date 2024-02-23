@@ -34,6 +34,10 @@
   * Ref: https://ollama.com/
   * Available for Linux, Mac and Windows and includes OpenAI API support. The Linux install command is shown below.
   * ```curl -fsSL https://ollama.com/install.sh | sh```
-  * ```ollama pull tinyllama, solar, qwen & llava```
+* Download ollama models
+  * ```ollama pull tinyllama```
+  * ```ollama pull solar```
+  * ```ollama pull qwen```
+  * ```ollama pull llava```
 * Run application
   * ```streamlit run rtxlab.py```
