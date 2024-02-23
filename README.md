@@ -23,15 +23,15 @@
 * This application works on Ubuntu. It should work on Windows and Mac natively althought this has not been tested.
 ## Setup:
 * Install CUDA
- * See https://developer.nvidia.com/cuda-downloads
+  * Ref: https://developer.nvidia.com/cuda-downloads
 * Create python environment
-```sh python -m venv ai```
-```sh source ai/bin/activate```
+  * ```sh python -m venv ai```
+  * ```sh source ai/bin/activate```
 * Install dependencies 
-```sh pip install streamlit ollama openai duckduckgo_search streamlit-keyup diffusers torch transformers tts```
+  * ```sh pip install streamlit ollama openai duckduckgo_search streamlit-keyup diffusers torch transformers tts```
 * Install Ollama
- * see https://ollama.com/
-```sh curl -fsSL https://ollama.com/install.sh | sh```
-```sh ollama pull tinyllama, solar, qwen & llava```
+  * Ref: https://ollama.com/
+  * ```sh curl -fsSL https://ollama.com/install.sh | sh```
+  * ```sh ollama pull tinyllama, solar, qwen & llava```
 * Run application
-```sh streamlit run rtxlab.py```
+  * ```sh streamlit run rtxlab.py```
