@@ -17,4 +17,4 @@
 ## Objective
 * The objective is to provide an environment where researchers can easily compare and combine models to develop new innovations quickly.
   
-**Please see LLM_POC_Overview_1.0.pdf for details regarding the RTX AI Lab application**
+**Please see LLM_POC_Overview_1.0.pdf for details**
