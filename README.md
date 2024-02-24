@@ -44,5 +44,6 @@
   * ```ollama pull solar```
   * ```ollama pull qwen```
   * ```ollama pull llava```
+  * Feel free to add any new models to the code.
 * Run application
   * ```streamlit run rtxailab.py```
