@@ -8,13 +8,13 @@
 ## Description
 * This application combines the following modes into one UI.
   * Model comparison
-  * Internet Search
+  * Internet Search - RAG1
   * Personas and Living FAQs
   * Image Generation
   * Vision
   * Voice Cloning
 * Roadmapped Features
-  * RAG (TBD)
+  * PDF to Vector Database RAG2 (TBD)
   * STT - LLM - TTS (TBD)
   * T2V (TBD)
   * Text-to-3D Asset (TBD)
