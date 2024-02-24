@@ -13,6 +13,7 @@
   * Image Generation
   * Vision
   * Voice Cloning
+* Roadmapped Features
   * RAG (TBD)
   * STT - LLM - TTS (TBD)
   * T2V (TBD)
