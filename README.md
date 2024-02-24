@@ -9,19 +9,19 @@
 * This application combines the following modes into one UI.
   * Model comparison
   * Internet Search - RAG1
-  * Personas and Living FAQs
+  * Personas & Living FAQs
   * Image Generation
   * Vision
   * Voice Cloning
 * Roadmapped Features
   * PDF to Vector Database - RAG2 (TBD)
   * Voice Dialog STT-LLM-TTS (TBD)
-  * T2V (TBD)
+  * T2V - Sora or next Open Model (TBD)
   * Text-to-3D Asset (TBD)
   * Function Calling (TBD)
-  * Motion generation (TBD)
+  * Motion generation - Virtual Robotics (TBD)
   * AI Driven Physics (TBD)
-  * AI World Rendering (TBD)
+  * AI World Rendering - Gaussian Splatting (TBD)
   * IsangTao i.e. One-person dev team employing true AI agents (TBD)
 * This application has been developed and tested on Ubuntu. It should work on Windows and Mac natively although these have not been tested.
 ## Setup:
