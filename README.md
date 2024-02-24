@@ -31,7 +31,7 @@
 * Create and activate a new python environment
   * ```python -m venv rtxailab```
   * ```source rtxailab/bin/activate```
-  * You can also use conda if that is your preference.
+  * You can also use Conda if that is your preference.
 * Install dependencies 
   * ```pip install streamlit ollama openai duckduckgo_search streamlit-keyup diffusers torch transformers tts```
   * You may need to exit your terminal, log back in and reactivate the rtxailab environment to register streamlit for the first time.
