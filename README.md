@@ -22,7 +22,7 @@
   * Motion generation (TBD)
   * AI Driven Physics (TBD)
   * AI World Rendering (TBD)
-  * Isang Tao i.e. One-person dev team employing true AI agents (TBD)
+  * IsangTao i.e. One-person dev team employing true AI agents (TBD)
 * This application has been developed and tested on Ubuntu. It should work on Windows and Mac natively although these have not been tested.
 ## Setup:
 * Download [rtxailab.py](https://github.com/isangtao/rtxailab/blob/main/rtxailab.py)
