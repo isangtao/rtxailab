@@ -14,8 +14,8 @@
   * Vision
   * Voice Cloning
 * Roadmapped Features
-  * PDF to Vector Database RAG2 (TBD)
-  * STT - LLM - TTS (TBD)
+  * PDF to Vector Database - RAG2 (TBD)
+  * Voice Dialog STT-LLM-TTS (TBD)
   * T2V (TBD)
   * Text-to-3D Asset (TBD)
   * Function Calling (TBD)
