@@ -10,7 +10,7 @@
   * Model comparison
   * Internet Search - RAG1
   * Personas & Living FAQs
-  * Image Generation
+  * Real-time Image Generation
   * Vision
   * Voice Cloning
 * Roadmapped Features
