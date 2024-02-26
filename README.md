@@ -1,6 +1,6 @@
 # RTX AI LAB
-## Screenshot
-![RTX AI Lab Screenshot](https://github.com/isangtao/rtxailab/blob/main/Screenshot%20from%202024-02-22%2020-10-16.png?raw=true)
+## Screenshots
+![RTX AI Lab Screenshot](https://github.com/isangtao/rtxailab/blob/main/rtxailab.gif)
 ## Objectives
 * to provide an environment where researchers can easily experiment with, compare and combine models to innovate quickly.
 * to provide minimalist source code for developers to copy and chain together in their own applications.
