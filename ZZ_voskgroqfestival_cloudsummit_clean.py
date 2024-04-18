@@ -1,6 +1,7 @@
 # voskgroqfestival voice app
-# © 2023-2024 Michael Carlos
+# © 2024 Michael Carlos
 # Version: 1.0.0
+# Originally developed in 2023. Added groq in 2024.
 
 #!/usr/bin/env python3
 # sudo apt install python3.11-venv libportaudio2 festival festvox-us-slt-hts (delete all other voices under /usr/share/festival/voices/)
