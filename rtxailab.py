@@ -1,5 +1,5 @@
 # RTX AI Lab
-# © 2024 Michael Carlos
+# © 2023-2024 Michael Carlos
 # Version: 0.3.0
 # Date: 20240222
 # To do: stt/llm/tts (Vosk,Whisper,Festival,espeak,gtts,xtts), RAG and Video Generation (Sora). Add functions for personas to call.
