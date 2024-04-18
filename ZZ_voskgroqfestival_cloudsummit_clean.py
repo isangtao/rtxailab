@@ -1,3 +1,7 @@
+# voskgroqfestival voice app
+# © 2023-2024 Michael Carlos
+# Version: 1.0.0
+
 #!/usr/bin/env python3
 # sudo apt install python3.11-venv libportaudio2 festival festvox-us-slt-hts (delete all other voices under /usr/share/festival/voices/)
 # pip install sounddevice vosk groq (use 'espeak' instead of 'festival --tts' for faster, but robotic, response)
