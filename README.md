@@ -44,7 +44,7 @@
   * ```ollama pull stablelm-zephyr``` (1.6GB censored)
   * ```ollama pull tinyllama``` (637MB uncensored)
   * ```ollama pull solar``` (6.1GB censored)
-  * ```ollama pull qwen``` 
+  * ```ollama run qwen:0.5b``` (394MB fast function calling)
   * ```ollama pull llava``` (4.7GB vision)
   * Feel free to add any new models to the code.
 * Run application
