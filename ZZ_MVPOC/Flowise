@@ -1,0 +1,12 @@
+#!/bin/sh
+# Reference: https://www.restack.io/docs/flowise-ai-knowledge-flowise-ai-login
+sudo apt update
+sudo apt install -y npm
+sudo npm install -g flowise
+firefox http://localhost:3000 &
+sudo npx flowise start --FLOWISE_USERNAME=user --FLOWISE_PASSWORD=1234
+# groq models: mixtral-8x7b-32768, llama3-70b-8192
+# curl -fsSL https://ollama.com/install.sh | sh
+# ollama pull stablelm-zephyr (1.6GB censored)
+# ollama pull dolphin-mistral (4.1GB uncensored)
+# ollama pull nomic-embed-text
