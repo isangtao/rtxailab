@@ -40,10 +40,12 @@
   * Ollama is available for Linux, Mac and Windows and supports the OpenAI API standard. The Linux install command is shown below.
   * ```curl -fsSL https://ollama.com/install.sh | sh```
 * Download local LLMs
-  * ```ollama pull tinyllama```
-  * ```ollama pull solar```
-  * ```ollama pull qwen```
-  * ```ollama pull llava```
+  * ```ollama pull dolphin-mistral``` (4.1GB uncensored)
+  * ```ollama pull stablelm-zephyr``` (1.6GB censored)
+  * ```ollama pull tinyllama``` (637MB uncensored)
+  * ```ollama pull solar``` (6.1GB censored)
+  * ```ollama pull qwen``` 
+  * ```ollama pull llava``` (4.7GB vision)
   * Feel free to add any new models to the code.
 * Run application
   * ```streamlit run rtxailab.py```
