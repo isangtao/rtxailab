@@ -1,16 +1,16 @@
 # RTX AI Lab
 # © 2023-2024 Michael Carlos
-# Version: 0.3.0
-# Date: 20240222
-# To do: stt/llm/tts (Vosk,Whisper,Festival,espeak,gtts,xtts), RAG and Video Generation (Sora). Add functions for personas to call.
+# Version: 0.3.1
+# Date: 20241118
+# To do: voice2voice (GLM-4-voice), stt/llm/tts (Vosk,Whisper,Festival,espeak,gtts,xtts), RAG and Video Generation (Sora). Add functions for personas to call. 
 
 # Setup:
-# install cuda
-# python -m venv ai
-# source ai/bin/activate
+# install cuda and miniconda
+# conda create -n rtxai python=3.11
+# conda activate rtxai
 # pip install streamlit ollama openai duckduckgo_search streamlit-keyup diffusers torch transformers tts
 # curl -fsSL https://ollama.com/install.sh | sh
-# ollama pull tinyllama, solar, qwen & llava
+# ollama pull moondream, llama3.2:latest, llama3.2:1b, qwen2.5-coder:latest & qwen2.5-coder:1.5b
 # streamlit run rtxailab.py
 
 import streamlit as st
@@ -21,7 +21,7 @@ from duckduckgo_search import DDGS
 from st_keyup import st_keyup
 from diffusers import AutoPipelineForText2Image
 import torch
-from TTS.api import TTS
+from TTS.api import TTS #Broken even with 3.8
 
 @st.cache_resource
 def get_pipe():
@@ -47,7 +47,7 @@ def set_llm():
 
     provider = st.radio ("Provider", ('ollama', 'openrouter'))
     if provider == 'ollama':
-        model = st.radio ("Models", ('tinyllama', 'solar', 'qwen'))
+        model = st.radio ("Models", ('llama3.2:latest', 'llama3.2:1b', 'qwen2.5-coder:latest', 'qwen2.5-coder:1.5b'))
     if provider == 'openrouter':
         api_key = st.text_input("Enter your OpenRouter key","")
         model = st.radio ("Models", ('mistralai/mistral-7b-instruct', 'huggingfaceh4/zephyr-7b-beta', 'openchat/openchat-7b'))
@@ -106,10 +106,11 @@ def call_openrouter(model, prompt):
 mode = "Select Mode"
 with st.sidebar:
     st.title("RTX AI Lab \n© 2024 Michael Carlos")
-    mode = st.radio ("Modes", ('Chat', 'Internet Search', 'Persona', 'Image Generation', 'Vision', 'Voice Cloning', 'Source'))
+    mode = st.radio ("Modes", ('Chat', 'Internet Search', 'Persona', 'Image Generation', 'Vision', 'Voice Cloning', 'Source')) 
     help = "help tbd"
     if mode == 'Chat':
-        help = "This version of chat employs the stock version of the language model. Chat history is not retained between prompts. This mode was included for prompt experimentation, performance benchmarking and quality comparison. Vector stores and agents are not used and there is no calls outside of its network. You can give it instructions such as: \n * Write a poem about Manila. \n * Explain Quantum Entanglement to me like I was a cat. \n * Show me code for a Hello world! program in C++. \n *The user is asking 'What is the latest news about the Philippines?' Select the best function from the following list to respond to the user's request: weather, calculator, search, image, music. Output only the function name."
+        help = "This version of chat employs the stock version of the language model. Chat history is not retained between prompts. This mode was included for prompt experimentation, performance benchmarking and quality comparison. Vector stores and agents are not used and there is no calls outside of its network. You can give it instructions such as: \n * Write a poem about Manila. \n * Explain Quantum Entanglement to me like I was a cat. \n * Write helloworld in C++." 
+        # \n *The user is asking 'What is the latest news about the Philippines?' Select the best function from the following list to respond to the user's request: weather, calculator, search, image, music. Output only the function name."
         set_llm()
     if mode == 'Internet Search':
         help = "(ChatWeb) Information is retreived from DuckDuckGo and used in the query template as context for a prompt. This works for any current topic and differs from a regular search by allowing creative prompts such as: \n * Write a story about the latest Large Language Models like you're a newscaster breaking news."
@@ -118,7 +119,7 @@ with st.sidebar:
         help = "Super-smart assistants. Living F.A.Q.s. For the example ask the assistant to: \n\nDescribe the property."
         set_llm()
     if mode == "Image Generation":
-        help = "chrome gold skull, carved intricate, forest \n\nfull-body photo of a chrome cyborg in a lab, beautiful face, long hair \n\nphoto of filipino man, mestizo, bald, short full-faced beard, thick eyebrows, chubby, muscular, sunset, beach"
+        help = "chrome gold skull, carved intricate, set in a forest \n\nfull-body photo of a chrome cyborg in a lab, beautiful face, long hair \n\nphoto of filipino man, mestizo, bald, short full-faced beard, thick eyebrows, chubby, muscular, sunset, beach"
     if mode == 'Vision':
         help = "Upload a jpeg or png and ask the model to: \n\nDescribe this. \n\nWrite a poem about the scene. \n\nWrite a poem about the subject in the image."
     if mode == 'PDF':
@@ -180,6 +181,8 @@ def persona():
                     call_openrouter(model, template_combined)
 
 def pictures():
+    torch.cuda.empty_cache()
+    torch.cuda.ipc_collect()
     prompt = st_keyup("Enter Prompt e.g. photo, beach, blue sky, sunshine, Philippines", debounce=500, key="2")
     if prompt:
         negative_prompt = st.text_input("Negative Prompt e.g. extra fingers, extra arms, extra head, extra eyes")
@@ -200,7 +203,7 @@ def vision():
                 with st.spinner():
                     msg = st.empty()
                     response = ""
-                    stream = ollama.chat(model='llava', messages=[{'role': 'user','content': prompt,'images': image_list}], stream=True,)
+                    stream = ollama.chat(model='moondream', messages=[{'role': 'user','content': prompt,'images': image_list}], stream=True,)
                     for chunk in stream:
                         response += chunk['message']['content']
                         msg.markdown(response)
