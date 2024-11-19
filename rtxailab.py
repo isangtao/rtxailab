@@ -21,7 +21,7 @@ from duckduckgo_search import DDGS
 from st_keyup import st_keyup
 from diffusers import AutoPipelineForText2Image
 import torch
-from TTS.api import TTS #Broken even with 3.8
+from TTS.api import TTS # only works in 3.9
 
 @st.cache_resource
 def get_pipe():
@@ -125,7 +125,7 @@ with st.sidebar:
     if mode == 'PDF':
         help = "(ChatPDF) tbd"  # I need to research latest tech. Vector stores and embeddings have changed since the last time I implemented this. Also, is this still required with the current large context windows?
     if mode == 'Voice Cloning':
-        help = "Upload a voice sample (3-10sec 22050hz 16bit wav) and enter some text to generate sentences in that voice. Here are some samples: \n\nHello! My name is John Smith. \n\nLarge language models use probability to construct the words in a seequence. For any given seequence, there is a probability distribution of options for the next word. \n\nThis version of chat employs the stock version of the language model. Chat history is not retained between prompts. This mode was included for prompt experimentation, performance benchmarking and quality comparison. "
+        help = "Upload a voice sample (3-10sec 22050hz 16bit wav) and enter some text to generate sentences in that voice. Here are some samples: \n\nHello! My name is John Smith. \n\nLarge language models use probability to construct the words in a seequence. For any given sequence, there is a probability distribution of options for the next word. \n\nThis version of chat employs the stock version of the language model. Chat history is not retained between prompts. This mode was included for prompt experimentation, performance benchmarking and quality comparison. "
     if mode == 'Documentation':
         help = "This displays the live source code"
 
