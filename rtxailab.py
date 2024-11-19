@@ -6,7 +6,7 @@
 
 # Setup:
 # install cuda and miniconda
-# conda create -n rtxai python=3.11
+# conda create -n rtxai python=3.10
 # conda activate rtxai
 # pip install streamlit ollama openai duckduckgo_search streamlit-keyup diffusers torch transformers tts
 # curl -fsSL https://ollama.com/install.sh | sh
