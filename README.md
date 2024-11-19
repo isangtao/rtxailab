@@ -13,25 +13,16 @@
   * Real-time Image Generation
   * Vision
   * Voice Cloning
-* Roadmapped Features
-  * PDF to Vector Database - RAG2 (TBD)
-  * Voice Dialog STT-LLM-TTS (TBD)
-  * T2V - Sora or next Open Model (TBD)
-  * Text-to-3D Asset (TBD)
-  * Function Calling (TBD)
-  * Motion generation - Virtual Robotics (TBD)
-  * AI Driven Physics (TBD)
-  * AI World Rendering - Gaussian Splatting (TBD)
-  * IsangTao i.e. One-person dev team employing true AI agents (TBD)
 * This application has been developed and tested on Ubuntu 22.04 with an RTX4070 12GB and 32GB of RAM. This has not been tested on Windows or Mac.
 ## Setup:
 * Download [rtxailab.py](https://github.com/isangtao/rtxailab/blob/main/rtxailab.py)
 * Install CUDA
   * Ref: https://developer.nvidia.com/cuda-downloads
+* Install MiniConda
+  * Ref: https://www.anaconda.com/download/success
 * Create and activate a new python environment
-  * ```python -m venv rtxailab```
-  * ```source rtxailab/bin/activate```
-  * You can also use Conda if that is your preference.
+  * ```conda create -n rtxai python=3.9```
+  * ```conda activate rtxai```
 * Install dependencies 
   * ```pip install streamlit ollama openai duckduckgo_search streamlit-keyup diffusers torch transformers tts```
   * You may need to exit your terminal, log back in and reactivate the rtxailab environment to register streamlit for the first time.
@@ -40,12 +31,11 @@
   * Ollama is available for Linux, Mac and Windows and supports the OpenAI API standard. The Linux install command is shown below.
   * ```curl -fsSL https://ollama.com/install.sh | sh```
 * Download local LLMs
-  * ```ollama pull dolphin-mistral``` (4.1GB uncensored)
-  * ```ollama pull stablelm-zephyr``` (1.6GB censored)
-  * ```ollama pull tinyllama``` (637MB uncensored)
-  * ```ollama pull solar``` (6.1GB censored)
-  * ```ollama run qwen:0.5b``` (394MB fast function calling)
-  * ```ollama pull llava``` (4.7GB vision)
+  * ```ollama pull llama3.2:latest```
+  * ```ollama pull llama3.2:1b```
+  * ```ollama pull qwen2.5-coder:latest```
+  * ```ollama pull qwen2.5-coder:1.5b```
+  * ```ollama pull moondream```
   * Feel free to add any new models to the code.
 * Run application
   * ```streamlit run rtxailab.py```
