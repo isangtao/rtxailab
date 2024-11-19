@@ -106,7 +106,7 @@ def call_openrouter(model, prompt):
 mode = "Select Mode"
 with st.sidebar:
     st.title("RTX AI Lab \n© 2024 Michael Carlos")
-    mode = st.radio ("Modes", ('Chat', 'Internet Search', 'Persona', 'Image Generation', 'Vision', 'Voice Cloning', 'Source')) 
+    mode = st.radio ("Modes", ('Image Generation', 'Chat', 'Internet Search', 'Persona', 'Vision', 'Voice Cloning', 'Source')) 
     help = "help tbd"
     if mode == 'Chat':
         help = "This version of chat employs the stock version of the language model. Chat history is not retained between prompts. This mode was included for prompt experimentation, performance benchmarking and quality comparison. Vector stores and agents are not used and there is no calls outside of its network. You can give it instructions such as: \n * Write a poem about Manila. \n * Explain Quantum Entanglement to me like I was a cat. \n * Write helloworld in C++." 
