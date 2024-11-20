@@ -116,16 +116,16 @@ with st.sidebar:
         help = "(ChatWeb) Information is retreived from DuckDuckGo and used in the query template as context for a prompt. This works for any current topic and differs from a regular search by allowing creative prompts such as: \n * Write a story about the latest Large Language Models like you're a newscaster breaking news."
         set_llm()
     if mode == 'Persona':
-        help = "Super-smart assistants. Living F.A.Q.s. For the example ask the assistant to: \n\nDescribe the property."
+        help = "Super-smart assistants. Living F.A.Q.s. For the example ask the assistant to: \n\n * Describe the property."
         set_llm()
     if mode == "Image Generation":
-        help = "chrome gold skull, carved intricate, set in a forest \n\nfull-body photo of a chrome cyborg in a lab, beautiful face, long hair \n\nphoto of filipino man, mestizo, bald, short full-faced beard, thick eyebrows, chubby, muscular, sunset, beach"
+        help = " * chrome gold skull, carved intricate, set in a forest \n\n * full-body photo of a chrome cyborg in a lab, beautiful face, long hair \n\n * photo of mestizo man, bald, short full-faced beard, thick eyebrows, muscular, sunset, beach"
     if mode == 'Vision':
-        help = "Upload a jpeg or png and ask the model to: \n\nDescribe this. \n\nWrite a poem about the scene. \n\nWrite a poem about the subject in the image."
+        help = "Upload a jpeg or png and ask the model to: \n\n * Describe this. \n\n * Write a poem about the scene. \n\n * Write a poem about the subject in the image."
     if mode == 'PDF':
         help = "(ChatPDF) tbd"  # I need to research latest tech. Vector stores and embeddings have changed since the last time I implemented this. Also, is this still required with the current large context windows?
     if mode == 'Voice Cloning':
-        help = "Upload a voice sample (3-10sec 22050hz 16bit wav) and enter some text to generate sentences in that voice. Here are some samples: \n\nHello! My name is John Smith. \n\nLarge language models use probability to construct the words in a sequence. For any given sequence, there is a probability distribution of options for the next word. \n\nThis version of chat employs the stock version of the language model. Chat history is not retained between prompts. This mode was included for prompt experimentation, performance benchmarking and quality comparison. "
+        help = "Upload a voice sample (3-10sec 22050hz 16bit wav) and enter some text to generate sentences in that voice. Here are some samples: \n\n * Hello! My name is John Smith. \n\n * Large language models use probability to construct the words in a sequence. For any given sequence, there is a probability distribution of options for the next word. \n\n * This version of chat employs the stock version of the language model. Chat history is not retained between prompts. This mode was included for prompt experimentation, performance benchmarking and quality comparison. "
     if mode == 'Documentation':
         help = "This displays the live source code"
 
