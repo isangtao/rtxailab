@@ -7,7 +7,6 @@
 
 import streamlit as st
 from openai import OpenAI
-from io import StringIO
 
 string_data = ''
 api_url = 'http://localhost:11434/v1'
@@ -30,7 +29,7 @@ with st.sidebar:
 	plot = st.text_input("High level plot summary", "Travels to the Philippines and starts a new life")
 
 if st.button("Generate"):
-	prompt_context = f"Here is some details about the protagonist: \nName:{name} \nGender:{gender}\nAge:{age}\nInterests:{interests}\nOccupation:{occupation}\nCountry:{country}\nCity:{city}\nOther:{other}\n"
+	prompt_context = f"Here are some details about the protagonist: \nName:{name} \nGender:{gender}\nAge:{age}\nInterests:{interests}\nOccupation:{occupation}\nCountry:{country}\nCity:{city}\nOther:{other}\n"
 	prompt_query = f"\nIn the style of a(n) {style}, write a story based on the following plot. Do not explain what you are doing, just jump into the story: {plot}"
 	template_combined = prompt_context + prompt_query + "\n"
 	stream = client.chat.completions.create(model=api_model, messages=[{"role": "user", "content": template_combined,},],stream = True)
