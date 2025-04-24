@@ -20,13 +20,13 @@ with st.sidebar:
 	gender = st.selectbox("Gender", ("Male", "Female", "Other"))
 	age = st.text_input("Age", "45")
 	height = st.text_input("Height", "5ft 10in")
-	interests = st.text_input("Interests", "motorcycling, martial arts, archery, hiking, kayaking, snorkeling")
-	occupation = st.text_input("Occupation", "AI Developer")
+	interests = st.text_input("Interests", "motorcycling, Aikido, archery, hiking, kayaking, snorkeling")
+	occupation = st.text_input("Occupation", "AI Researcher")
 	country = st.text_input("Country", "Canada")
 	city = st.text_input("City", "Vancouver")
-	other = st.text_input("Other", "n/a")
-	style = st.selectbox("Style", ("Children's book", "Teen adventure", "Adult novel"))
-	plot_select = st.selectbox("Select a plot summary", ("Travels to the Philippines and starts a new life", "After a battle on an alien world, meets a beautiful enemy alien girl and befriends her.", "Learns to levitate and fly", "Creates an AI that mimics biological intelligence"))
+	other = st.text_input("Other", "Owns a company focused on AGI research")
+	style = st.selectbox("Style", ("Adult novel", "Teen adventure", "Children's book"))
+	plot_select = st.selectbox("Select a plot summary", ("The Last Human Living Inside a Simulation of the Past (Unaware): The last human on a dying Earth is unknowingly living inside a meticulously crafted simulation of their favorite historical period, maintained by benevolent AI. The story explores what happens when glitches and inconsistencies begin to appear, hinting at the true nature of their reality.", "After a battle on an alien world, meets a beautiful enemy alien girl and befriends her.", "Learns to levitate and fly", "Creates an AI that mimics biological intelligence"))
 	plot = st.text_input("Or create your own", plot_select)
 
 if st.button("Generate"):
