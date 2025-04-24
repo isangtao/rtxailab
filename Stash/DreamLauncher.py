@@ -26,7 +26,7 @@ with st.sidebar:
 	city = st.text_input("City", "Vancouver")
 	other = st.text_input("Other", "Owns a company focused on AGI research")
 	style = st.selectbox("Style", ("Adult novel", "Teen adventure", "Children's book"))
-	plot_select = st.selectbox("Select a plot summary", ("The Last Human Living Inside a Simulation of the Past (Unaware): The last human on a dying Earth is unknowingly living inside a meticulously crafted simulation of their favorite historical period, maintained by benevolent AI. The story explores what happens when glitches and inconsistencies begin to appear, hinting at the true nature of their reality.", "After a battle on an alien world, meets a beautiful enemy alien girl and befriends her.", "Learns to levitate and fly", "Creates an AI that mimics biological intelligence"))
+	plot_select = st.selectbox("Select a plot summary", ("Travels to the Philippines and starts a new life", "After a battle on an alien world, meets a beautiful enemy alien girl and befriends her.", "Learns to levitate and fly", "Creates an AI that mimics biological intelligence"))
 	plot = st.text_input("Or create your own", plot_select)
 
 if st.button("Generate"):
