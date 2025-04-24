@@ -21,7 +21,7 @@ with st.sidebar:
 	age = st.text_input("Age", "45")
 	height = st.text_input("Height", "5ft 10in")
 	interests = st.text_input("Interests", "motorcycling, martial arts, archery, hiking, kayaking, snorkeling")
-	occupation = st.text_input("Occupation", "Software Developer")
+	occupation = st.text_input("Occupation", "AI Developer")
 	country = st.text_input("Country", "Canada")
 	city = st.text_input("City", "Vancouver")
 	other = st.text_input("Other", "n/a")
