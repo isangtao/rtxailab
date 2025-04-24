@@ -1,8 +1,7 @@
 # python -m venv ai
 # source ai/bin/activate
 # pip install streamlit openai
-# curl -fsSL https://ollama.com/install.sh | sh
-# ollama pull gemma3:1b
+# Update API info below (or install Ollama e.g. curl -fsSL https://ollama.com/install.sh | sh && ollama pull gemma3:1b)
 # streamlit run AgentPromptLab.py
 
 import streamlit as st
