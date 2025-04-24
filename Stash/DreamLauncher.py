@@ -26,7 +26,7 @@ with st.sidebar:
 	city = st.text_input("City", "Vancouver")
 	other = st.text_input("Other", "n/a")
 	style = st.selectbox("Style", ("Children's book", "Teen adventure", "Adult novel"))
-	plot_select = st.selectbox("Select a plot summary", ("Travels to the Philippines and starts a new life", "After a battle on an alien world, meets a beautiful enemy alien girl and befriends her.", "Creates an AI that mimics biological intelligence"))
+	plot_select = st.selectbox("Select a plot summary", ("Travels to the Philippines and starts a new life", "After a battle on an alien world, meets a beautiful enemy alien girl and befriends her.", "Learns to levitate and fly", "Creates an AI that mimics biological intelligence"))
 	plot = st.text_input("Or create your own", plot_select)
 
 if st.button("Generate"):
