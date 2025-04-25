@@ -2,7 +2,7 @@
 # source ai/bin/activate
 # pip install streamlit openai
 # Update API info below (or install Ollama e.g. curl -fsSL https://ollama.com/install.sh | sh && ollama pull gemma3:1b)
-# streamlit run DreamLauncher.py
+# streamlit run Dreamer.py
 
 import streamlit as st
 from openai import OpenAI
