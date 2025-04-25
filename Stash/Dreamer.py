@@ -32,7 +32,7 @@ with st.sidebar:
 	plot = st.text_input("Or create your own", plot_select)
 
 prompt_context = f"Details about the protagonist of a story follows. \n\nName:{name}\n\nEthnicity:{ethnicity}\n\nGender:{gender}\n\nAge:{age}\n\nHeight:{height}\n\nInterests:{interests}\n\nOccupation:{occupation}\n\nCountry:{country}\n\nCity:{city}\n\nOther:{other}\n\nPlot:{plot}"
-prompt_query = f"\n\nIn the style of a(n) {style}, write a story based on the plot. Provide no explanation or preamble. Just jump into the story."
+prompt_query = f"\n\nIn the style of a(n) {style}, write a story based on the plot. Provide no explanation or preamble. Just state the title and jump into the story."
 template_combined = prompt_context + prompt_query + "\n\n"
 
 if st.button("Generate", help=template_combined):
