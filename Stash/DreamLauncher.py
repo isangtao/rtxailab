@@ -7,7 +7,6 @@
 import streamlit as st
 from openai import OpenAI
 
-string_data = ''
 api_url = 'http://localhost:11434/v1'
 api_key = '1234'
 api_model = 'gemma3:1b'
