@@ -26,7 +26,7 @@ with st.sidebar:
 	occupation = st.text_input("Occupation", "AI Researcher")
 	country = st.text_input("Country", "Canada")
 	city = st.text_input("City", "Vancouver")
-	other = st.text_input("Other", "Founded a company focused on AGI research")
+	other = st.text_input("Other", "Founded AGI Labs Inc., a company focused on AGI research")
 	style = st.selectbox("Style", ("Adult novel", "Teen adventure", "Children's book"))
 	plot_select = st.selectbox("Select a plot summary", ("Travels to the Philippines and starts a new life", "After a battle on an alien world, meets a beautiful enemy alien girl and befriends her", "Learns to levitate and fly", "Creates an AI that mimics biological intelligence"))
 	plot = st.text_input("Or create your own", plot_select)
