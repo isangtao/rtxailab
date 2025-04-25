@@ -27,15 +27,17 @@ with st.sidebar:
 	country = st.text_input("Country", "Canada")
 	city = st.text_input("City", "Vancouver")
 	other = st.text_input("Other", "Founded AGI Labs Inc., a company focused on AGI research")
-	style = st.selectbox("Style", ("Adult novel", "Teen adventure", "Children's book"))
-	plot_select = st.selectbox("Select a plot summary", ("Travels to the Philippines and starts a new life", "After a battle on an alien world, meets a beautiful enemy alien girl and befriends her", "Learns to levitate and fly", "Creates an AI that mimics biological intelligence"))
-	plot = st.text_input("Or create your own", plot_select)
+	style = st.selectbox("Style", ("Adult novel", "Teen adventure", "Childrens' book"))
+	plot_type = st.selectbox("Type", ("Science fiction", "Suspense", "Thriller", "Action", "Adventure", "Fantasy", "Horror", "Mystery"))
+	context = f"Details about the protagonist of a story follows. \n\nName:{name}\n\nEthnicity:{ethnicity}\n\nGender:{gender}\n\nAge:{age}\n\nHeight:{height}\n\nInterests:{interests}\n\nOccupation:{occupation}\n\nCountry:{country}\n\nCity:{city}\n\nOther:{other}\n\n"
 
-prompt_context = f"Details about the protagonist of a story follows. \n\nName:{name}\n\nEthnicity:{ethnicity}\n\nGender:{gender}\n\nAge:{age}\n\nHeight:{height}\n\nInterests:{interests}\n\nOccupation:{occupation}\n\nCountry:{country}\n\nCity:{city}\n\nOther:{other}\n\nPlot:{plot}"
-prompt_query = f"\n\nIn the style of a(n) {style}, write a story based on the plot. Provide no explanation or preamble. Just state the title and jump into the story."
-template_combined = prompt_context + prompt_query + "\n\n"
-
-if st.button("Generate", help=template_combined):
+if st.button("Generate"):
+	plot_prompt = f"{context}Provide an unusual {plot_type} plot based on the information above. Don't explain or preamble. Just state the plot summary in one sentence."
+	completion = client.chat.completions.create(model=api_model, messages=[{"role": "user", "content": plot_prompt ,},])
+	plot = completion.choices[0].message.content
+	template_combined = f"{context}\n\nPlot:{plot}\n\nIn the style of a(n) {style}, write a story based on the plot. Provide no explanation or preamble. Just state the title and jump into the story.\n\n"
+	with st.expander("Prompt Info"):
+		st.write(template_combined)
 	stream = client.chat.completions.create(model=api_model, messages=[{"role": "user", "content": template_combined,},], temperature=0.95, stream = True)
 	with st.spinner():
 		msg = st.empty()
