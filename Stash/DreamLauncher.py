@@ -17,7 +17,7 @@ client = OpenAI(base_url = api_url, api_key=api_key)
 with st.sidebar:
 	st.title("Dream launcher \n© 2025 Michael Carlos")
 	name = st.text_input("Protagonist's name", "Michael")
-	gender = st.selectbox("Gender", ("Male", "Female", "Other"))
+	gender = st.text_input("Gender", "Male")
 	age = st.text_input("Age", "45")
 	height = st.text_input("Height", "5ft 10in")
 	interests = st.text_input("Interests", "motorcycling, Aikido, archery, hiking, kayaking, snorkeling")
