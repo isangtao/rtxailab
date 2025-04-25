@@ -13,6 +13,8 @@ api_model = 'gemma3:1b'
 
 client = OpenAI(base_url = api_url, api_key=api_key)
 
+st.set_page_config(layout="wide")
+
 with st.sidebar:
 	st.title("Dreamer \n© 2025 Michael Carlos")
 	name = st.text_input("Protagonist's name", "Michael")
