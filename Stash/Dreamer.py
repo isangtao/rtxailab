@@ -28,7 +28,7 @@ with st.sidebar:
 	city = st.text_input("City", "Vancouver")
 	other = st.text_input("Other", "Founded a company focused on AGI research")
 	style = st.selectbox("Style", ("Adult novel", "Teen adventure", "Children's book"))
-	plot_select = st.selectbox("Select a plot summary", ("Travels to the Philippines and starts a new life", "After a battle on an alien world, meets a beautiful enemy alien girl and befriends her.", "Learns to levitate and fly", "Creates an AI that mimics biological intelligence"))
+	plot_select = st.selectbox("Select a plot summary", ("Travels to the Philippines and starts a new life", "After a battle on an alien world, meets a beautiful enemy alien girl and befriends her", "Learns to levitate and fly", "Creates an AI that mimics biological intelligence"))
 	plot = st.text_input("Or create your own", plot_select)
 
 prompt_context = f"Here are some details about the protagonist: \n\nName:{name}\n\nEthnicity:{ethnicity}\n\nGender:{gender}\n\nAge:{age}\n\nHeight:{height}\n\nInterests:{interests}\n\nOccupation:{occupation}\n\nCountry:{country}\n\nCity:{city}\n\nOther:{other}\n\nPlot:{plot}"
