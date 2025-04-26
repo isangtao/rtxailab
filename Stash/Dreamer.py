@@ -33,7 +33,7 @@ with st.sidebar:
 
 if st.button("Generate"):
 	plot_prompt = f"{context}Provide an unusual {plot_type} plot based on the information above. Don't explain or preamble. Just state the plot summary in one sentence."
-	completion = client.chat.completions.create(model=api_model, messages=[{"role": "user", "content": plot_prompt ,},])
+	completion = client.chat.completions.create(model=api_model, messages=[{"role": "user", "content": plot_prompt ,},], temperature=0.95)
 	plot = completion.choices[0].message.content
 	template_combined = f"{context}\n\nPlot:{plot}\n\nIn the style of a(n) {style}, write a story based on the plot. Provide no explanation or preamble. Just state the title and jump into the story.\n\n"
 	with st.expander("Prompt Info"):
