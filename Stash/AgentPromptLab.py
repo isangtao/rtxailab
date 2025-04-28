@@ -9,30 +9,21 @@ from openai import OpenAI
 from io import StringIO
 
 string_data = ''
-api_url = 'http://localhost:11434/v1'
-api_key = '1234'
-api_model = 'gemma3:1b'
-
-client = OpenAI(base_url = api_url, api_key=api_key)
+client = OpenAI(base_url = 'http://localhost:11434/v1', api_key='1234')
 
 with st.sidebar:
-	st.title("Agent Prompt Lab \n© 2025 Michael Carlos")
+	st.title("Prompt Lab \n© 2025 Michael Carlos")
 	uploaded_file = st.file_uploader("Choose a text file")
 	if uploaded_file:
 		stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
 		string_data = stringio.read()
-	api_url = st.text_input("API URL", api_url)
-	api_key = st.text_input("API key", api_key)
-	api_model = st.text_input("Model", api_model)
 
 prompt = st.chat_input()
 if prompt:
-	prompt_context = f"\n\nUse this context to answer the user's query below: \n<context>\n{string_data}\n</context>"
-	prompt_query = f"\n\nAnswer the following query: \n{prompt}"
-	template_combined = prompt_context + prompt_query + "\n"
+	template_combined = f"<context>\n\n{string_data}\n\n</context>\n\n{prompt}"
 	with st.chat_message("user"):
 		st.write("```" + template_combined + "```")
-	stream = client.chat.completions.create(model=api_model, messages=[{"role": "user", "content": template_combined,},],stream = True)
+	stream = client.chat.completions.create(model='gemma3:1b', messages=[{"role": "user", "content": template_combined,},],stream = True)
 	with st.chat_message("assistant"):
 		with st.spinner():
 			msg = st.empty()
