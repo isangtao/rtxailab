@@ -16,13 +16,14 @@ api_url = 'http://localhost:11434/v1'
 api_key = '1234'
 api_model = 'llama3.2'
 
-st.set_page_config(layout="wide")
-client = OpenAI(base_url = api_url, api_key=api_key)
+st.set_page_config(layout = "wide")
+client = OpenAI(base_url = api_url, api_key = api_key)
 
 @st.cache_resource
 def get_tts():
-    tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2")
-    return tts
+	gpu_flag = True if torch.cuda.is_available() else False
+	tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2", gpu = gpu_flag)
+	return tts
 
 with st.sidebar:
 	st.title("Narrator \n© 2025 Michael Carlos")
@@ -35,8 +36,8 @@ with st.sidebar:
 	occupation = st.text_input("Occupation", "AI Researcher")
 	country = st.text_input("Country of residence", "Canada")
 	city = st.text_input("City of residence", "Vancouver")
-	other = st.text_input("Other", "Founded A G I Labs Inc, a company focused on Artificial General Intelligence")
-	additional = st.text_area("Additional Instructions", "Make it a happy story with sunshine and warm weather. Set it in a utopian downtown Vancouver in the near future. Depict Robots as decent, helpful and protective.")
+	other = st.text_input("Other", "Founded A G I Labs Inc, a company focused on Artificial General Intelligence. He developed a real-time, reinforcement-learning algorithm that grows exponentially.")
+	additional = st.text_area("Additional Instructions", "Make it a happy story with sunshine and warm weather. Set it near a utopian downtown Vancouver in the near future. Depict Robots as decent, helpful and protective.")
 	style = st.selectbox("Style", ("Adult novel", "Teen adventure", "Childrens' book"))
 	plot_type = st.selectbox("Type", ("Science fiction", "Suspense", "Thriller", "Action", "Adventure", "Fantasy", "Horror", "Mystery"))
 	context = f"Details about the protagonist of a story follows. \n\nName: {name}\n\nEthnicity: {ethnicity}\n\nGender: {gender}\n\nAge: {age}\n\nHeight: {height}\n\nInterests: {interests}\n\nOccupation: {occupation}\n\nCountry of residence: {country}\n\nCity of residence: {city}\n\nOther:{other}\n\n"
@@ -56,5 +57,6 @@ if st.button("Generate"):
 			if chunk.choices[0].delta:
 				response += chunk.choices[0].delta.content
 				msg.markdown(response)
+		st.write("Generate 10 images based on the story above. https://aistudio.google.com/prompts/new_chat \n\nGenerating audio...")
 		get_tts().tts_to_file(text=response, speaker_wav="sample.wav", language="en", file_path="output.wav")
 		st.audio("output.wav")
