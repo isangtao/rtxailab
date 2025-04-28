@@ -33,13 +33,13 @@ with st.sidebar:
 	height = st.text_input("Height", "5ft 10in")
 	interests = st.text_input("Interests", "robotics, motorcycling, aikido, archery, hiking, kayaking, snorkeling")
 	occupation = st.text_input("Occupation", "AI Researcher")
-	country = st.text_input("Country", "Canada")
-	city = st.text_input("City", "Vancouver")
+	country = st.text_input("Country of residence", "Canada")
+	city = st.text_input("City of residence", "Vancouver")
 	other = st.text_input("Other", "Founded AGI Labs Inc, a company focused on AGI research")
 	additional = st.text_area("Additional Instructions", "Don't mention rain or echoes. Make it a happy story with sunshine and warm weather. Set it in a utopian downtown Vancouver in the near future. Depict Robots as decent, helpful and protective.")
 	style = st.selectbox("Style", ("Adult novel", "Teen adventure", "Childrens' book"))
 	plot_type = st.selectbox("Type", ("Science fiction", "Suspense", "Thriller", "Action", "Adventure", "Fantasy", "Horror", "Mystery"))
-	context = f"Details about the protagonist of a story follows. \n\nName:{name}\n\nEthnicity:{ethnicity}\n\nGender:{gender}\n\nAge:{age}\n\nHeight:{height}\n\nInterests:{interests}\n\nOccupation:{occupation}\n\nCountry:{country}\n\nCity:{city}\n\nOther:{other}\n\n"
+	context = f"Details about the protagonist of a story follows. \n\nName: {name}\n\nEthnicity: {ethnicity}\n\nGender: {gender}\n\nAge: {age}\n\nHeight: {height}\n\nInterests: {interests}\n\nOccupation: {occupation}\n\nCountry of residence: {country}\n\nCity of residence: {city}\n\nOther:{other}\n\n"
 
 if st.button("Generate"):
 	plot_prompt = f"{context}Provide an unusual {plot_type} plot based on the information above. {additional} Don't explain or preamble. Just state the plot summary in one sentence."
