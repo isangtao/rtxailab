@@ -4,6 +4,7 @@
 # conda activate ai
 # pip install streamlit openai coqui-tts torch torchvision torchaudio
 # Update API info below (or install Ollama e.g. curl -fsSL https://ollama.com/install.sh | sh && ollama pull gemma3)
+# tts --model_name tts_models/multilingual/multi-dataset/xtts_v2 --text "The quick brown fox jumps over the lazy dog." --speaker_wav sample.wav --language_idx en
 # streamlit run Narrator.py
 
 import streamlit as st
@@ -15,9 +16,13 @@ api_url = 'http://localhost:11434/v1'
 api_key = '1234'
 api_model = 'gemma3'
 
-client = OpenAI(base_url = api_url, api_key=api_key)
-tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2")
 st.set_page_config(layout="wide")
+client = OpenAI(base_url = api_url, api_key=api_key)
+
+@st.cache_resource
+def get_tts():
+    tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2")
+    return tts
 
 with st.sidebar:
 	st.title("Dreamer \n© 2025 Michael Carlos")
@@ -31,7 +36,7 @@ with st.sidebar:
 	country = st.text_input("Country", "Canada")
 	city = st.text_input("City", "Vancouver")
 	other = st.text_input("Other", "Founded A G I Labs Inc., a company focused on A G I research")
-	additional = st.text_input("Additional Instructions", "Make it a happy story with sunshine and warm weather. Set it in the forests of British Columbia.")
+	additional = st.text_input("Additional Instructions", "Make it a happy story with sunshine and warm weather. Set it in the forests of British Columbia. Depict Robots as decent, helpful and protective.")
 	style = st.selectbox("Style", ("Adult novel", "Teen adventure", "Childrens' book"))
 	plot_type = st.selectbox("Type", ("Science fiction", "Suspense", "Thriller", "Action", "Adventure", "Fantasy", "Horror", "Mystery"))
 	context = f"Details about the protagonist of a story follows. \n\nName:{name}\n\nEthnicity:{ethnicity}\n\nGender:{gender}\n\nAge:{age}\n\nHeight:{height}\n\nInterests:{interests}\n\nOccupation:{occupation}\n\nCountry:{country}\n\nCity:{city}\n\nOther:{other}\n\n"
@@ -51,7 +56,6 @@ if st.button("Generate"):
 			if chunk.choices[0].delta:
 				response += chunk.choices[0].delta.content
 				msg.markdown(response)
-		tts.tts_to_file(text=response, speaker_wav="sample.wav", language="en", file_path="output.wav")
+		get_tts().tts_to_file(text=response, speaker_wav="sample.wav", language="en", file_path="output.wav")
 		st.audio("output.wav")
 
-# tts --model_name tts_models/multilingual/multi-dataset/xtts_v2 --text "The quick brown fox jumps over the lazy dog." --speaker_wav sample.wav --language_idx en
