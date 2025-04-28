@@ -36,7 +36,7 @@ with st.sidebar:
 	country = st.text_input("Country", "Canada")
 	city = st.text_input("City", "Vancouver")
 	other = st.text_input("Other", "Founded AGI Labs Inc, a company focused on AGI research")
-	additional = st.text_input("Additional Instructions", "Don't mention rain or echoes. Make it a happy story with sunshine and warm weather. Set it in the forests of British Columbia. Depict Robots as decent, helpful and protective. Make it a happy story with sunshine and warm weather. Set it in the forests of British Columbia. Depict Robots as decent, helpful and protective.")
+	additional = st.text_input("Additional Instructions", "Don't mention rain or echoes. Make it a happy story with sunshine and warm weather. Set it in the forests of British Columbia. Depict Robots as decent, helpful and protective.")
 	style = st.selectbox("Style", ("Adult novel", "Teen adventure", "Childrens' book"))
 	plot_type = st.selectbox("Type", ("Science fiction", "Suspense", "Thriller", "Action", "Adventure", "Fantasy", "Horror", "Mystery"))
 	context = f"Details about the protagonist of a story follows. \n\nName:{name}\n\nEthnicity:{ethnicity}\n\nGender:{gender}\n\nAge:{age}\n\nHeight:{height}\n\nInterests:{interests}\n\nOccupation:{occupation}\n\nCountry:{country}\n\nCity:{city}\n\nOther:{other}\n\n"
