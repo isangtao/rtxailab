@@ -36,13 +36,13 @@ with st.sidebar:
 	country = st.text_input("Country", "Canada")
 	city = st.text_input("City", "Vancouver")
 	other = st.text_input("Other", "Founded AGI Labs Inc, a company focused on AGI research")
-	additional = st.text_input("Additional Instructions", "Don't mention rain or echoes. Make it a happy story with sunshine and warm weather. Set it in the forests of British Columbia. Depict Robots as decent, helpful and protective.")
+	additional = st.text_area("Additional Instructions", "Don't mention rain or echoes. Make it a happy story with sunshine and warm weather. Set it in a utopian downtown Vancouver in the near future. Depict Robots as decent, helpful and protective.")
 	style = st.selectbox("Style", ("Adult novel", "Teen adventure", "Childrens' book"))
 	plot_type = st.selectbox("Type", ("Science fiction", "Suspense", "Thriller", "Action", "Adventure", "Fantasy", "Horror", "Mystery"))
 	context = f"Details about the protagonist of a story follows. \n\nName:{name}\n\nEthnicity:{ethnicity}\n\nGender:{gender}\n\nAge:{age}\n\nHeight:{height}\n\nInterests:{interests}\n\nOccupation:{occupation}\n\nCountry:{country}\n\nCity:{city}\n\nOther:{other}\n\n"
 
 if st.button("Generate"):
-	plot_prompt = f"{context}Provide an unusual {plot_type} plot based on the information above. Don't explain or preamble. {additional} Just state the plot summary in one sentence."
+	plot_prompt = f"{context}Provide an unusual {plot_type} plot based on the information above. {additional} Don't explain or preamble. Just state the plot summary in one sentence."
 	completion = client.chat.completions.create(model=api_model, messages=[{"role": "user", "content": plot_prompt ,},], temperature=0.95)
 	plot = completion.choices[0].message.content
 	template_combined = f"{context}\n\nPlot:{plot}\n\nIn the style of a(n) {style}, write a story based on the plot. {additional} Provide no explanation or preamble. Just state the title and jump into the story.\n\n"
