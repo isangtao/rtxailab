@@ -57,6 +57,6 @@ if st.button("Generate"):
 			if chunk.choices[0].delta:
 				response += chunk.choices[0].delta.content
 				msg.markdown(response)
-		st.write("Generate 10 images for the story above. Do not include text. Do not depict children. Michael Carlos is a 55 year old bald Filipino mestizo mesomorph with a short beard. https://aistudio.google.com/prompts/new_chat")
+		st.write("Generate 10 images for the story above. Do not include text. Do not depict children. https://copilot.microsoft.com/ https://aistudio.google.com/prompts/new_chat")
 		get_tts().tts_to_file(text=response, speaker_wav="sample.wav", language="en", file_path="output.wav")
 		st.audio("output.wav")
