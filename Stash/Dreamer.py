@@ -26,7 +26,7 @@ with st.sidebar:
 	occupation = st.text_input("Occupation", "AI Researcher")
 	country = st.text_input("Country of residence", "Canada")
 	city = st.text_input("City of residence", "Vancouver")
-	other = st.text_input("Other", "Founded A G I Labs Inc, a company focused on Artificial General Intelligence. He developed a real-time, reinforcement-learning algorithm that grows exponentially.")
+	other = st.text_input("Other", "Founded A G I Labs Inc, a company focused on Artificial General Intelligence")
 	additional = st.text_area("Additional Instructions", "Make it a happy story with sunshine and warm weather. Set it in a utopian downtown Vancouver in the near future. Depict Robots as decent, helpful and protective.")
 	style = st.selectbox("Style", ("Adult novel", "Teen adventure", "Childrens' book"))
 	plot_type = st.selectbox("Type", ("Science fiction", "Suspense", "Thriller", "Action", "Adventure", "Fantasy", "Horror", "Mystery"))
