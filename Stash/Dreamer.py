@@ -10,7 +10,7 @@ from openai import OpenAI
 
 api_url = 'http://localhost:11434/v1'
 api_key = '1234'
-api_model = 'llama3.2'
+api_model = 'gemma3:1b'
 
 st.set_page_config(layout="wide")
 client = OpenAI(base_url = api_url, api_key=api_key)
@@ -26,8 +26,8 @@ with st.sidebar:
 	occupation = st.text_input("Occupation", "AI Researcher")
 	country = st.text_input("Country of residence", "Canada")
 	city = st.text_input("City of residence", "Vancouver")
-	other = st.text_input("Other", "Founded A G I Labs Inc, a company focused on Artificial General Intelligence. He developed a real-time, reinforcement-learning architecture that self-organizes through evolutionary algorithms.")
-	additional = st.text_area("Additional Instructions", "Give the story a happy ending. Set it in a utopian downtown Vancouver in the near future with sunshine and warm weather. Depict Robots as decent, helpful and protective. Do not address Michael Carlos as Dr. or Mike.")
+	other = st.text_input("Other", "Founded AGI Labs Inc, a company focused on Artificial General Intelligence. He developed a real-time, reinforcement-learning architecture that self-organizes through evolutionary algorithms.")
+	additional = st.text_area("Additional Instructions", "Do not say rain, algorithm, echo or echoes. Give the story a happy ending. Set it in a utopian downtown Vancouver in the near future with sunshine and warm weather. Depict Robots as decent, helpful and protective. Do not address Michael Carlos as Dr. or Mike.")
 	style = st.selectbox("Style", ("Adult novel", "Teen adventure", "Childrens' book"))
 	plot_type = st.selectbox("Type", ("Science fiction", "Suspense", "Thriller", "Action", "Adventure", "Fantasy", "Horror", "Mystery"))
 	context = f"Details about the protagonist of a story follows. \n\nName: {name}\n\nEthnicity: {ethnicity}\n\nGender: {gender}\n\nAge: {age}\n\nHeight: {height}\n\nInterests: {interests}\n\nOccupation: {occupation}\n\nCountry of residence: {country}\n\nCity of residence: {city}\n\nOther:{other}\n\n"
@@ -36,7 +36,7 @@ if st.button("Generate"):
 	plot_prompt = f"{context}Provide an unusual {plot_type} plot based on the information above. {additional} Don't explain or preamble. Just state the plot summary in one sentence."
 	completion = client.chat.completions.create(model=api_model, messages=[{"role": "user", "content": plot_prompt}], temperature=0.9)
 	plot = completion.choices[0].message.content
-	template_combined = f"{context}\n\nPlot:{plot}\n\nIn the style of a {plot_type} {style}, write a story based on the plot. {additional} Provide no explanation or preamble. Just state the title and jump into the story.\n\n"
+	template_combined = f"{context}\n\nPlot:{plot}\n\nIn the style of a {plot_type} {style}, write a long story based on the plot. {additional} Provide no explanation or preamble. Just state the title and jump into the story.\n\n"
 	with st.expander("Prompt Info"):
 		st.write(template_combined)
 	stream = client.chat.completions.create(model=api_model, messages=[{"role": "user", "content": template_combined}], temperature=0.9, stream = True)
@@ -47,4 +47,4 @@ if st.button("Generate"):
 			if chunk.choices[0].delta:
 				response += chunk.choices[0].delta.content
 				msg.markdown(response)
-		st.write("Generate 10 images for the story above. Do not include text. Do not depict children. https://copilot.microsoft.com/ https://aistudio.google.com/prompts/new_chat")
+		st.write("----------\n\nGenerate 10 images for the story above. Do not include text. Do not depict children. https://copilot.microsoft.com/ https://aistudio.google.com/prompts/new_chat")
