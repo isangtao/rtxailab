@@ -26,7 +26,7 @@ def get_tts():
 	return tts
 
 with st.sidebar:
-	st.title("Dreamer \n© 2025 Michael Carlos")
+	st.title("Narrator \n© 2025 Michael Carlos")
 	name = st.text_input("Protagonist's name", "Michael Carlos")
 	ethnicity = st.text_input("Ethnicity", "Filipino")
 	gender = st.text_input("Gender", "Male")
