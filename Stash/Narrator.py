@@ -57,5 +57,6 @@ if st.button("Generate"):
 			if chunk.choices[0].delta:
 				response += chunk.choices[0].delta.content
 				msg.markdown(response)
+		st.write("----------\n\nGenerate 10 images for the story above. Do not include text. Do not depict children. https://copilot.microsoft.com/ https://aistudio.google.com/prompts/new_chat \n\nGenerating Audio...")
 		get_tts().tts_to_file(text=response, speaker_wav="sample.wav", language="en", file_path="output.wav")
 		st.audio("output.wav")
