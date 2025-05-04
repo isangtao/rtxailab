@@ -47,4 +47,4 @@ if st.button("Generate"):
 			if chunk.choices[0].delta:
 				response += chunk.choices[0].delta.content
 				msg.markdown(response)
-		st.write("----------\n\nGenerate 10 images that show the progression of the story above. Do not include text. Do not depict children. If you can't generate an image, skip that part of the story and generate the next image. https://copilot.microsoft.com/ https://aistudio.google.com/prompts/new_chat")
+		st.write("----------\n\nUsing the attached photos of the protagonist, generate 10 images that show the progression of the story above. Do not include text. Do not depict children. If you can't generate an image, skip that part of the story and generate the next image. <a href="https://copilot.microsoft.com/">https://aistudio.google.com/")
