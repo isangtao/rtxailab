@@ -23,7 +23,7 @@
 
         async function dream() 
         {
-            const response = await fetch("http://localhost:11434/api/generate", {method: "POST", headers: {"Content-Type": "application/json", "Authorization": "Bearer 1234"}, body: JSON.stringify({model: "llama3.2", prompt: myprompt, stream: true})});
+            const response = await fetch("http://localhost:11434/api/generate", {method: "POST", headers: {"Content-Type": "application/json", "Authorization": "Bearer 1234"}, body: JSON.stringify({model: "llama3.2", prompt: myprompt, stream: true, options: {temperature: 0.9}})});
 
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
@@ -47,10 +47,18 @@
                 }
             }
         }
+
+        function play()
+        {
+            speech = new SpeechSynthesisUtterance();
+            speech.text = output.innerText;
+            window.speechSynthesis.speak(speech);
+        }
         
     </script>
 </head>
 <body onload="dream()">
+    <!--<button onclick="play()">></button>-->
     <p id="output"></p>
 </body>
 </html>
