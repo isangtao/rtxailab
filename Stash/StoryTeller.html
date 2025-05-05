@@ -4,44 +4,28 @@
     <meta charset="UTF-8">
     <title>StoryTeller</title>
     <style>
-        body { color: hsl(120, 97%, 15%); white-space: pre-wrap; word-wrap: break-word; padding: 10px; min-height: 50px; background-color: #000000;}
+        body { color: #014b01; white-space: pre-wrap; word-wrap: break-word; padding: 100px; background-color: #000000;}
     </style>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-        // Ensure that there is an environmental variable named "OLLAMA_ORIGINS" with a value of "*"
-        myprompt = "Details about the protagonist of a story follows.\nName: Michael Carlos\nEthnicity: Filipino\nGender: Male\nAge: 55\nHeight: 5ft 10in\nInterests: artificial intelligence, robotics, motorcycling, aikido, archery, hiking, kayaking, snorkeling, survival skills, minimalism, resourcefulness, math, physics, biology\nOccupation: AI Researcher and Developer\nCountry of residence: Canada\nCity of residence: Vancouver\nOther: Founded AGI Labs Inc, a company focused on Artificial General Intelligence. He developed a real-time, reinforcement-learning architecture that self-organizes through evolutionary algorithms.\nPlot: Michael creates the first combat AI with the ability to learn exponentially. Michael merges with the AI and moves past space-time constraints. He becomes invincible and gains the ability to be anywhere at anytime.\n\nIn the style of an action adult novel, write a long story based on the plot. Do not say rain, obsidian, bloom, algorithm, chronos, resonance or echoes. Give the story a happy ending. Set it in a utopian downtown Vancouver in the near future with sunshine and warm weather. Do not address Michael Carlos as Dr. or Mike. Provide no explanation or preamble. Just state the title and jump into the story.\n\n"
+        // Ensure that there is an environmental variable named "OLLAMA_ORIGINS" with a value of "*" then restart Ollama.
+        myprompt = "Details about the protagonist of a story follows.\nName: Michael Carlos\nEthnicity: Filipino\nGender: Male\nAge: 55\nHeight: 5ft 10in\nInterests: artificial intelligence, robotics, motorcycling, aikido, archery, hiking, kayaking, snorkeling, survival skills, minimalism, resourcefulness, math, physics, biology\nOccupation: AI Researcher and Developer\nCountry of residence: Canada\nCity of residence: Vancouver\nOther: Founded AGI Labs Inc, a company focused on Artificial General Intelligence. He developed a real-time, reinforcement-learning architecture that self-organizes through evolutionary algorithms.\nPlot: Michael creates the first combat AI with the ability to learn exponentially. Michael merges with the AI and moves past space-time constraints. He becomes invincible and gains the ability to be anywhere at anytime.\n\nIn the style of an action adult novel, write a long story based on the plot. Do not say rain, resonance or echoes. Give the story a happy ending. Set it in a utopian downtown Vancouver in the near future with sunshine and warm weather. Do not address Michael Carlos as Dr. or Mike. Provide no explanation or preamble. Just state the title and jump into the story.\n\n"
         async function dream() 
         {
-            const response = await fetch("http://localhost:11434/api/generate", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer 1234"
-                },
-                body: JSON.stringify({
-                    model: "llama3.2",
-                    prompt: myprompt,
-                    stream: true
-                })
-            });
+            const response = await fetch("http://localhost:11434/api/generate", {method: "POST", headers: {"Content-Type": "application/json", "Authorization": "Bearer 1234"}, body: JSON.stringify({model: "llama3.2", prompt: myprompt, stream: true})});
 
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
             const output = document.getElementById("output");
             output.innerText = "" // myprompt;
 
-            while (true) {
+            while (true) 
+            {
                 const { done, value } = await reader.read();
                 if (done) break;
 
                 const chunk = decoder.decode(value, { stream: true });
                 output.innerText += JSON.parse(chunk).response
             }
-            play();
-        }
-
-        function play()
-        {
             speech = new SpeechSynthesisUtterance();
             speech.text = output.innerText;
             window.speechSynthesis.speak(speech);
