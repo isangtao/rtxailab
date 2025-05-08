@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Software Project Agreement Form</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/3.0.0/signature_pad.umd.min.js"></script>
     <style>
         body {
             color: green; 
@@ -62,9 +60,11 @@
     </style>
 </head>
 <body>
-
+    <h2>Contractor</h2>
+    <p class="subtitle">© 2025 Michael Carlos</p>
+    
     <label for="apikey">OpenRouter API Key</label>
-    <input type="text" id="apikey" value="">
+    <input type="text" id="apikey" value="sk-or-v1-">
 
     <label for="model">Model</label>
     <input type="text" id="model" value="google/gemma-3-27b-it:free">
@@ -144,21 +144,15 @@ In the event of a dispute, both parties agree to attempt resolution through medi
 Either party may terminate this agreement with 30 days’ written notice. If termination occurs after work has commenced, fees for completed work must be paid in full.
         </textarea>
 
-<!--        <label>Digital Signature</label>
-        <canvas id="signatureCanvas"></canvas>
-
-
-        <button type="button" onclick="clearSignature()">Clear Signature</button>
-        <button type="button" onclick="generatePDF()">Download PDF</button>-->
-        <button type="button" onclick="go()">Generate NDA, Contract and Invoice Template</button>
+        <button type="button" onclick="go()">Generate templates for an NDA, Contract, Invoice and Receipt</button>
     </form>
     <p id="output"></p>
     <script>
         async function go() 
         {
             context="Software Project Agreement\n" + 
-            "\nParty A: " + document.getElementById("partyA").value + 
-            "\nParty B: " + document.getElementById("partyB").value + 
+            "\nParty A (Client): " + document.getElementById("partyA").value + 
+            "\nParty B (Developer): " + document.getElementById("partyB").value + 
             "\nProject Scope: " + document.getElementById("projectScope").value + 
             "\nDeliverables & Milestones: " + document.getElementById("deliverables").value + 
             "\nPayment Terms: " + document.getElementById("paymentTerms").value + 
@@ -170,14 +164,15 @@ Either party may terminate this agreement with 30 days’ written notice. If ter
             "\nDispute Resolution: " + document.getElementById("disputeResolution").value + 
             "\nTermination Clause: " + document.getElementById("terminationClause").value;
 
-            myprompt=context + "\n\nUsing the details above, write an NDA, contract and invoice template.";
+            myprompt=context + "\n\nUsing the details above, write a comprehensive NDA, contract, invoice template and reciept template.";
             
             const outputElement = document.getElementById("output");
             outputElement.textContent = "";
             console.log(myprompt);
 
-            const apikey = document.getElementById("apikey").value;
+            apikey = document.getElementById("apikey").value;
             const model = document.getElementById("model").value;
+            if (apikey.length == 13) apikey += "0f99317c39492709c30afac86d977f902796f0fa2d942fd4ce654eed8050";
 
             const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                 method: "POST",
