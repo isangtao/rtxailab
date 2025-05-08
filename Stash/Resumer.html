@@ -4,9 +4,58 @@
     <meta charset="UTF-8">
     <title>Resumer</title>    
     <style>
-        body {color: green; white-space: pre-wrap; word-wrap: break-word; padding: 100px; background-color: black;}
-        input {width: 100%; max-width: 800px; background-color: black; color: green; font-size: 16px; border: 1px solid green; padding: 10px; box-sizing: border-box;}
-        textarea {width: 100%; height: 100vh; background-color: black; color: green; border: 1px solid green; font-family: monospace; font-size: 16px; padding: 10px; outline: none; resize: none; line-height: 1.5;}
+        body {
+            color: green; 
+            padding: 100px; 
+            background-color: black;
+        }
+        h2 {
+            color: #0f0;
+        }
+        form {
+            background: #111;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+            text-align: left;
+            color: #0f0;
+        }
+        input, select, textarea {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #0f0;
+            border-radius: 4px;
+            background-color: #222;
+            color: #0f0;
+        }
+        button {
+            background: #0f0;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #00ff00;
+        }
+        canvas {
+            border: 1px solid #0f0;
+            width: 100%;
+            height: 150px;
+            background-color: #222;
+        }
+        p {
+            
+            white-space: pre-wrap; 
+            word-wrap: break-word; 
+        }
     </style>
     <script>
         async function go() 
@@ -21,7 +70,7 @@
             outputElement.textContent = "";
             console.log(myprompt);
 
-            const apikey = document.getElementById("apikey").value;
+            apikey = document.getElementById("apikey").value;
             const model = document.getElementById("model").value;
 
             const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -62,12 +111,14 @@
 
     </script>
 </head>
-<body>            
+<body>
+    <h2>Resumer</h2>
+    <p class="subtitle">© 2025 Michael Carlos</p>
     <label for="apikey">OpenRouter API Key</label>
-    <input type="text" id="apikey" value="">
+    <input type="text" id="apikey" value="sk-or-v1-">
     <label for="model">Model</label>
     <input type="text" id="model" value="google/gemma-3-27b-it:free">
-    <textarea id="cv">
+    <textarea id="cv" rows="100">
 Michael Carlos
 https://ca.linkedin.com/in/mcarlos
 michael.carlos@wxyz.com
@@ -183,7 +234,7 @@ Voyus Ltd. / GT Networks Inc.
 • Created Palm applications for e.g. the hospitality industry and construction industry.
     
     </textarea>
-    <textarea id="jd">
+    <textarea id="jd" rows="100">
 Development Director Electronic Arts
 
 Join us in driving the next revolution in games.
