@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Project Agreement Form</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/3.0.0/signature_pad.umd.min.js"></script>
+    <style>
+        body {
+            color: green; 
+            padding: 100px; 
+            background-color: black;
+        }
+        h2 {
+            color: #0f0;
+        }
+        form {
+            background: #111;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+            text-align: left;
+            color: #0f0;
+        }
+        input, select, textarea {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #0f0;
+            border-radius: 4px;
+            background-color: #222;
+            color: #0f0;
+        }
+        button {
+            background: #0f0;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #00ff00;
+        }
+        canvas {
+            border: 1px solid #0f0;
+            width: 100%;
+            height: 150px;
+            background-color: #222;
+        }
+        p {
+            
+            white-space: pre-wrap; 
+            word-wrap: break-word; 
+        }
+    </style>
+</head>
+<body>
+
+    <label for="apikey">OpenRouter API Key</label>
+    <input type="text" id="apikey" value="">
+
+    <label for="model">Model</label>
+    <input type="text" id="model" value="google/gemma-3-27b-it:free">
+
+    <h2>Software Project Agreement Form</h2>
+
+    <form id="agreementForm">
+        <label for="partyA">Party A (Client/Company Name)</label>
+        <input type="text" id="partyA" name="partyA" required>
+
+        <label for="partyB">Party B (Developer/Freelancer Name)</label>
+        <input type="text" id="partyB" name="partyB" value="Michael Carlos / AGI Labs Inc." required>
+
+        <label for="projectScope">Project Scope</label>
+        <select id="projectScope" name="projectScope">
+            <option>Website</option>
+            <option>Web App</option>
+            <option>Mobile App</option>
+            <option>AI Application</option>
+        </select>
+
+        <label for="deliverables">Deliverables & Milestones</label>
+        <textarea id="deliverables" name="deliverables" rows="6">
+Phase 1: Initial Wireframes & Design Concepts – Due by [Date]
+Phase 2: Frontend Development Completion – Due by [Date]
+Phase 3: Backend Integration & Testing – Due by [Date]
+Final Deliverable: Fully Functional Website – Delivered by [Date]
+Each milestone is subject to client review and approval before proceeding to the next phase.
+        </textarea>
+
+        <label for="paymentTerms">Payment Terms</label>
+        <textarea id="paymentTerms" name="paymentTerms" rows="6">
+The total project cost is $10,000, payable in three installments:
+30% ($3,000) upfront upon contract signing.
+40% ($4,000) upon completion of Phase 2.
+30% ($3,000) upon final delivery and approval.
+Payment is due within 14 days of invoice issuance.
+        </textarea>
+
+        <label for="ipOwnership">Intellectual Property (IP) Ownership</label>
+        <select id="ipOwnership" name="ipOwnership">
+            <option selected>Developer retains rights</option>
+            <option>Shared ownership</option>
+            <option>Client owns full rights</option>
+        </select>
+
+        <label for="confidentiality">Confidentiality Agreement Duration</label>
+        <input type="text" id="confidentiality" name="confidentiality" value="2 years">
+
+        <label for="invoiceDetails">Invoice Details</label>
+        <textarea id="invoiceDetails" name="invoiceDetails" rows="6">
+Invoices will be issued electronically to [Client’s Email] with the following details:
+Service provider name & contact
+Invoice number & date
+Payment due date
+Breakdown of charges
+Accepted payment methods (e.g., bank transfer, PayPal)
+        </textarea>
+
+        <label for="liability">Liability & Indemnification</label>
+        <textarea id="liability" name="liability" rows="6">
+The service provider shall not be held liable for indirect damages, including lost revenue or data breaches caused by third-party integrations. The client agrees to indemnify the provider against claims resulting from the misuse of the software after delivery.
+        </textarea>
+
+        <label for="changeManagement">Change Management Process</label>
+        <textarea id="changeManagement" name="changeManagement" rows="6">
+Any changes requested after project commencement must be documented and approved in writing. Change requests may impact the delivery timeline and cost, which will be discussed and agreed upon before implementation.
+        </textarea>
+
+        <label for="disputeResolution">Dispute Resolution</label>
+        <textarea id="disputeResolution" name="disputeResolution" rows="6">
+In the event of a dispute, both parties agree to attempt resolution through mediation before escalating to arbitration or legal proceedings. Mediation will be conducted within 30 days of the dispute notification.
+        </textarea>
+
+        <label for="terminationClause">Termination Clause</label>
+        <textarea id="terminationClause" name="terminationClause" rows="6">
+Either party may terminate this agreement with 30 days’ written notice. If termination occurs after work has commenced, fees for completed work must be paid in full.
+        </textarea>
+
+<!--        <label>Digital Signature</label>
+        <canvas id="signatureCanvas"></canvas>
+
+
+        <button type="button" onclick="clearSignature()">Clear Signature</button>
+        <button type="button" onclick="generatePDF()">Download PDF</button>-->
+        <button type="button" onclick="go()">Generate NDA, Contract and Invoice Template</button>
+    </form>
+    <p id="output"></p>
+    <script>
+        async function go() 
+        {
+            context="Software Project Agreement\n" + 
+            "\nParty A: " + document.getElementById("partyA").value + 
+            "\nParty B: " + document.getElementById("partyB").value + 
+            "\nProject Scope: " + document.getElementById("projectScope").value + 
+            "\nDeliverables & Milestones: " + document.getElementById("deliverables").value + 
+            "\nPayment Terms: " + document.getElementById("paymentTerms").value + 
+            "\nIP Ownership: " + document.getElementById("ipOwnership").value + 
+            "\nConfidentiality Duration: " + document.getElementById("confidentiality").value + 
+            "\nInvoice Details: " + document.getElementById("invoiceDetails").value + 
+            "\nLiability & Indemnification: " + document.getElementById("liability").value + 
+            "\nChange Management: " + document.getElementById("changeManagement").value + 
+            "\nDispute Resolution: " + document.getElementById("disputeResolution").value + 
+            "\nTermination Clause: " + document.getElementById("terminationClause").value;
+
+            myprompt=context + "\n\n Using the details above, write an NDA, contract and invoice template.";
+            
+            const outputElement = document.getElementById("output");
+            outputElement.textContent = "";
+            console.log(myprompt);
+
+            const apikey = document.getElementById("apikey").value;
+            const model = document.getElementById("model").value;
+
+            console.log(apikey);
+            console.log(model);
+
+            const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${apikey}`
+                },
+                body: JSON.stringify({
+                    model: model,
+                    messages: [{ role: "user", content: myprompt }],
+                    stream: true
+                })
+            });
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const chunk = decoder.decode(value, { stream: true });
+                chunk.split("\n").forEach(line => {
+                    if (line.startsWith("data:")) {
+                        try {
+                            const json = JSON.parse(line.substring(5));
+                            if (json.choices?.[0]?.delta?.content) {
+                                outputElement.textContent += json.choices[0].delta.content;
+                            }
+                        } catch (error) {
+                            console.error("Error parsing chunk:", error);
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>
