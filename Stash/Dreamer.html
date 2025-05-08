@@ -5,151 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dreamer</title>
     <style>
-        /* Basic Reset & Body Styling */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            background-color: black; /* Dark background overall */
-            color: green; /* Light text color */
-            display: flex; /* Use flexbox for layout */
-            min-height: 100vh;
-            line-height: 1.6;
+            color: green; 
+            padding: 100px; 
+            background-color: black;
         }
-
-        /* Main Container */
-        .container {
-            display: flex;
-            width: 100%;
+        h2 {
+            color: #0f0;
         }
-
-        /* Sidebar Styling */
-        .sidebar {
-            width: 350px; /* Fixed width for the sidebar */
-            background-color: black; /* Slightly different dark shade */
+        form {
+            background: #111;
             padding: 20px;
-            border-right: 1px solid green;
-            overflow-y: auto; /* Allow scrolling if content overflows */
-            height: 100vh; /* Make sidebar full height */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
         }
-
-        .sidebar h2 {
-            color: green;
-            margin-bottom: 5px;
-            font-size: 1.5em;
-        }
-
-        .sidebar .subtitle {
-            font-size: 0.8em;
-            color: green;
-            margin-bottom: 25px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
+        label {
+            font-weight: bold;
             display: block;
-            font-size: 0.9em;
-            color: green;
-            margin-bottom: 5px;
+            margin: 10px 0 5px;
+            text-align: left;
+            color: #0f0;
         }
-
-        .form-group input[type="text"],
-        .form-group input[type="number"],
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 8px 10px;
-            background-color: black;
-            border: 1px solid green;
-            color: green;
+        input, select, textarea {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #0f0;
             border-radius: 4px;
-            font-size: 0.95em;
+            background-color: #222;
+            color: #0f0;
         }
-
-        .form-group textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .form-group select {
-            appearance: none; /* Basic styling for select */
-            background-repeat: no-repeat;
-            background-position: right 10px top 50%;
-            background-size: .65em auto;
-        }
-
-        /* Main Content Area Styling */
-        .main-content {
-            flex: 1; /* Takes remaining width */
-            padding: 25px 40px;
-            background-color: black; /* Slightly different dark shade */
-            overflow-y: auto; /* Allow scrolling for story */
-            height: 100vh;
-        }
-
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid green;
-        }
-
-        .top-bar button {
-            padding: 8px 18px;
-            background-color: black;
-            border: 1px solid green;
-            color: green;
-            border-radius: 4px;
+        button {
+            background: #0f0;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 0.9em;
         }
-         .top-bar button:hover {
-             background-color: black;
-         }
-
-        .top-bar .prompt-info {
-            font-size: 0.9em;
-            color: green;
-            /* In a real app, this might be a dropdown/collapsible section */
+        button:hover {
+            background: #00ff00;
         }
-
-
-        .story-content h1 {
-            font-size: 1.8em;
-            color: green;
-            margin-bottom: 20px;
-            font-weight: 600;
+        canvas {
+            border: 1px solid #0f0;
+            width: 100%;
+            height: 150px;
+            background-color: #222;
         }
-
-        .story-content p {
-            margin-bottom: 1.2em;
-            color: green; /* Slightly lighter text for readability */
+        p {
+            
+            white-space: pre-wrap; 
+            word-wrap: break-word; 
         }
-
-        .footer-instructions {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid green;
-            font-size: 0.85em;
-            color: green;
-        }
-        .footer-instructions a {
-            color: green;
-            text-decoration: none;
-        }
-        .footer-instructions a:hover {
-            text-decoration: underline;
-        }
-
     </style>
 </head>
 <body>
@@ -160,7 +67,7 @@
 
             <div class="form-group">
                 <label for="apikey">OpenRouter API Key</label>
-                <input type="text" id="apikey" value="">
+                <input type="text" id="apikey" value="sk-or-v1-">
             </div>            
             
             <div class="form-group">
@@ -291,7 +198,7 @@
 
             context = "\nDetails about the protagonist of a story follows.\nName: " + protagonistname + "\nEthnicity: " + ethnicity + "\nGender: " + gender + "\nAge: " + age + "\nHeight: " + height + "\nInterests: " + interests + "\nOccupation: " + occupation + "\nCountry of residence: " + country + "\nCity of residence: " + city + "\nOther: " + other;
 
-            const apikey = document.getElementById("apikey").value;
+            apikey = document.getElementById("apikey").value;
             const model = document.getElementById("model").value;
 
             myprompt = context + "\n\nProvide an unusual " + type + " plot based on the information above. " + additional + " Don't explain or preamble. Just state the plot summary in one sentence."
