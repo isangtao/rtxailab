@@ -1,6 +1,6 @@
 # Lumin (c) Michael Carlos 260119
 # Low latency low memory STT-LLM-TTS cascading architecture
-# To interrupt long responses say "stop"
+# To interrupt long responses say "stop" or "clear memory" or "forget everything" to reset the conversation.
 # Use headphones with microphone for best results. You can turn on echo cancellation in Linux as an alternative. 'pactl load-module module-echo-cancel'
 
 # conda create -n ptts python=3.12.3 (or use venv)
@@ -98,7 +98,13 @@ if __name__ == "__main__":
 
                 if text_input in ["huh", "ha", "ah"]:
                     continue
-                
+
+                if "clear memory" in text_input or "forget everything" in text_input:
+                    # Reset to just the system prompt
+                    conversation_history = [conversation_history[0]]
+                    print("Memory cleared.")
+                    continue
+
                 print(f"User: {text_input}")
                 stop_event.clear()
                 
