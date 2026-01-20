@@ -1,7 +1,7 @@
 # Lumin (c) Michael Carlos 260119
 # Low latency low memory STT-LLM-TTS cascading architecture
 # To interrupt long responses say "stop"
-# Use headphones with microphone for best results.
+# Use headphones with microphone for best results. You can turn on echo cancellation in Linux as an alternative. 'pactl load-module module-echo-cancel'
 
 # conda create -n ptts python=3.12.3 (or use venv)
 # conda activate ptts
