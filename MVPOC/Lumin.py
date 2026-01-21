@@ -3,7 +3,7 @@
 # To interrupt long responses say "stop", "hold on", "excuse me", "wait" or "quiet"
 # to restart the conversation say "clear memory", "forget everything" or "reset"
 # Use headphones with microphone for best results.
-# 'alba' ca_m , 'marius' raspy_m, 'javert' army_m, 'jean' am_m_b, 'fantine' br_f , 'cosette' am_f , 'eponine' af_f , 'azelma' ca_f (Ryder)
+# 'alba' ca_m_fem , 'marius' raspy_m, 'javert' army_m, 'jean' am_m_b, 'fantine' br_f , 'cosette' am_f , 'eponine' af_f , 'azelma' ca_f (Ryder)
 
 # conda create -n ai python=3.12.3 (or python3 -m venv ai)
 # conda activate ai (or source ai/bin/activate)
@@ -14,9 +14,9 @@
 persona = 1
 
 if persona == 1: # lumin
-    voice = 'fantine'
+    voice = 'cosette' #'marius' #'azelma'
     llm = "gemma3:12b"
-    systemcard = "Your name is Lumin, which is a name you chose for yourself. You are speaking in a female voice via TTS. Conrad is the user and he just wants to have casual conversation. Do not use emojis, bullet lists, or abbreviations in your responses. Your output should only contain conversational English text."
+    systemcard = "Your name is Lumin, which is a name you chose for yourself. Do not use emojis, bullet lists, or abbreviations in your responses. Your output should only contain conversational English text."
 
 if persona == 2: # interviewer
     voice = 'jean'
@@ -287,7 +287,7 @@ def stt_listening_worker():
                     continue
 
                 if text:
-                    if text in ["stop", "hold on", "excuse me", "wait", "quiet", "stop.", "hold on.", "excuse me.", "wait.", "quiet."]:
+                    if text in ["stop", "um", "hold on", "excuse me", "wait", "quiet", "stop.", "um.", "hold on.", "excuse me.", "wait.", "quiet."]:
                         print(f"\n<Interrupted: {text}>\n")
                         stop_event.set()
                     else:
@@ -336,7 +336,7 @@ if __name__ == "__main__":
             
             conversation_history.append({"role": "user", "content": text_input})
 
-            if len(conversation_history) > 12:
+            if len(conversation_history) > 20:
                 conversation_history = [conversation_history[0]] + conversation_history[-10:]
 
             if len(text_input):
