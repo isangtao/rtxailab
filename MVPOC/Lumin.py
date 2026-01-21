@@ -1,10 +1,11 @@
 # Lumin (c) Michael Carlos 260119
 # Low latency low memory STT-LLM-TTS cascading architecture
-# To interrupt long responses say "stop" or "clear memory" or "forget everything" to reset the conversation.
+# To interrupt long responses say "stop", "hold on", "excuse me", "wait" or "quiet"
+# to restart the conversation say "clear memory", "forget everything" or "reset"
 # Use headphones with microphone for best results. You can turn on echo cancellation in Linux as an alternative. 'pactl load-module module-echo-cancel'
 
-# conda create -n ptts python=3.12.3 (or use venv)
-# conda activate ptts
+# conda create -n ai python=3.12.3 (or python3 -m venv ai)
+# conda activate ai (or source ai/bin/activate)
 # sudo apt install portaudio19-dev python3-all-dev
 # pip install pocket-tts sounddevice pyaudio vosk openai
 # Install Ollama and your favorite model (e.g. gemma3:12b)
@@ -25,7 +26,7 @@ user_input_queue = queue.Queue()
 
 # ------------------------------- Pocket-TTS -------------------------------
 modeltts = TTSModel.load_model()
-voice_state = modeltts.get_state_for_audio_prompt('fantine') 
+voice_state = modeltts.get_state_for_audio_prompt('fantine') # 'alba' ca_m , 'marius' raspy_m, 'javert' army_m, 'jean' am_m_b, 'fantine' br_f , 'cosette' am_f , 'eponine' af_f , 'azelma' ca_f (Ryder)
 sample_rate = 24000 
 
 def speak(text, streamtts):
@@ -36,7 +37,6 @@ def speak(text, streamtts):
         if stop_event.is_set():
             streamtts.stop() 
             streamtts.start()
-            #print("\n[Interrupted]")
             break
             
         # 2. Play Audio
@@ -63,8 +63,8 @@ def stt_listening_worker():
             text = result.get('text', '').lower()
             
             if text:
-                if "stop" in text:
-                    print("\n<Interrupted>")
+                if text in ["stop", "hold on", "excuse me", "wait", "quiet"]:
+                    print("\n<Interrupted>\n")
                     stop_event.set()
                 else:
                     user_input_queue.put(text)
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     listener_thread = threading.Thread(target=stt_listening_worker, daemon=True)
     listener_thread.start()
 
-    print("<Ready>")
+    print("\n<Ready>\n")
 
     with sd.RawInputStream(samplerate=samplerate, blocksize=8000, dtype="int16", channels=1, callback=audio_callback):
         with sd.OutputStream(samplerate=sample_rate, channels=1, dtype='float32') as streamtts:
@@ -96,13 +96,13 @@ if __name__ == "__main__":
                 except queue.Empty:
                     continue
 
-                if text_input in ["huh", "ha", "ah"]:
+                if text_input in ["huh", "ha", "ah","stop", "hold on", "excuse me", "wait", "quiet"]:
                     continue
 
-                if "clear memory" in text_input or "forget everything" in text_input:
+                if text_input in ["clear memory", "forget everything", "reset"]:
                     # Reset to just the system prompt
                     conversation_history = [conversation_history[0]]
-                    print("Memory cleared.")
+                    print("\n<Memory cleared>\n")
                     continue
 
                 print(f"User: {text_input}")
