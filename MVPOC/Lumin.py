@@ -8,7 +8,7 @@
 # conda create -n ai python=3.12.3 (or python3 -m venv ai)
 # conda activate ai (or source ai/bin/activate)
 # sudo apt install portaudio19-dev python3-all-dev
-# pip install pocket-tts sounddevice pyaudio faster_whisper openai
+# pip install pocket-tts sounddevice pyaudio faster_whisper openai speechrecognition
 # Install Ollama and your favorite model (e.g. gemma3:12b)
 
 persona = 1
