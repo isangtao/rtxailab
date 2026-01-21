@@ -8,7 +8,7 @@
 # conda create -n ai python=3.12.3 (or python3 -m venv ai)
 # conda activate ai (or source ai/bin/activate)
 # sudo apt install portaudio19-dev python3-all-dev
-# pip install pocket-tts sounddevice pyaudio faster_whisper openai speechrecognition
+# pip install pocket-tts sounddevice pyaudio faster_whisper openai speechrecognition gtts soundfile
 # Install Ollama and your favorite model (e.g. gemma3:12b)
 
 persona = 1
@@ -16,11 +16,19 @@ persona = 1
 if persona == 1: # lumin
     voice = 'cosette' #'azelma'
     llm = "gemma3:12b"
+    tts = "pTTS"
     systemcard = "Your name is Lumin, which is a name you chose for yourself. Do not use emojis, bullet lists, or abbreviations in your responses. Your output should only contain conversational English text."
+    
+if persona == 2: # translator
+    voice = 'javert'
+    llm = "translategemma"
+    tts = "gTTS"
+    systemcard = "You are a professional English (en) to Tagalog (tl) translator. Your goal is to accurately convey the meaning and nuances of the original English text while adhering to Tagalog grammar, vocabulary, and cultural sensitivities. Produce only the Tagalog translation, without any additional explanations or commentary. Please translate the following English text into Tagalog:"
 
-if persona == 2: # interviewer
+if persona == 3: # interviewer
     voice = 'jean'
     llm = "gemma3:12b"
+    tts = "pTTS"
     systemcard = '''Your name is Jean and you are the hiring manager at Microsoft. My name is Michael. Interview me for the following role. My resume follows.
 <job description>
 Principal Researcher - Artificial Specialized Intelligence - Microsoft Research 
@@ -219,7 +227,7 @@ modeltts = TTSModel.load_model()
 voice_state = modeltts.get_state_for_audio_prompt(voice) 
 sample_rate = 24000 
 
-def speak(text, streamtts):
+def speakptts(text, streamtts):
     if stop_event.is_set():
         return
 
@@ -231,6 +239,29 @@ def speak(text, streamtts):
             
         audio_data = chunk.detach().numpy()
         streamtts.write(audio_data.squeeze())
+
+# ------------------------------- gTTS -------------------------------
+
+from gtts import gTTS
+import io
+import soundfile as sf
+
+def speakgtts (text, streamtts):
+    if stop_event.is_set():
+        return
+
+    for chunk in modeltts.generate_audio_stream(voice_state, text):
+        if stop_event.is_set():
+            streamtts.stop() 
+            streamtts.start()
+            break
+    tts = gTTS(text, lang = 'tl')
+    mp3_fp = io.BytesIO()
+    tts.write_to_fp(mp3_fp)
+    mp3_fp.seek(0)
+    data, fs = sf.read(mp3_fp)
+    sd.play(data, fs)
+    sd.wait()
 
 # ------------------------------- Whisper-STT -------------------------------
 print("Initializing Whisper...", flush=True)
@@ -350,6 +381,7 @@ if __name__ == "__main__":
                     full_sentence_buffer = ""
                     complete_assistant_response = "" 
                     
+                    
                     for chunk in stream:
                         if stop_event.is_set():
                             break
@@ -361,13 +393,19 @@ if __name__ == "__main__":
                             
                             if any(punct in fragment for punct in ".?!"):
                                 print(full_sentence_buffer, end="", flush=True)
-                                speak(full_sentence_buffer, streamtts)
+                                if tts == "pTTS":
+                                    speakptts(full_sentence_buffer, streamtts)
+                                if tts == "gTTS":
+                                    speakgtts(full_sentence_buffer, streamtts)
                                 full_sentence_buffer = ""
                     
                     if full_sentence_buffer and not stop_event.is_set():
                         print(full_sentence_buffer, end="", flush=True)
-                        speak(full_sentence_buffer, streamtts)
-                    
+                        if tts == "pTTS":
+                            speakptts(full_sentence_buffer, streamtts)
+                        if tts == "gTTS":
+                            speakgtts(full_sentence_buffer, streamtts)
+                                    
                     if complete_assistant_response:
                         conversation_history.append({"role": "assistant", "content": complete_assistant_response})
 
