@@ -21,7 +21,7 @@ if persona == 1: # lumin
 if persona == 2: # interviewer
     voice = 'jean'
     llm = "gemma3:12b"
-    systemcard = '''You are the hiring manager at Microsoft. Interview me for the following role:
+    systemcard = '''Your name is Jean and you are the hiring manager at Microsoft. My name is Michael. Interview me for the following role. My resume follows.
 <job description>
 Principal Researcher - Artificial Specialized Intelligence - Microsoft Research 
 
@@ -69,6 +69,136 @@ A track record of published research in the field of AI or other system innovati
 Keen interest in general AI research, including but not limited to large foundation models.
 Research Sciences IC5 - The typical base pay range for this role across Canada is CAD $142,400 - CAD $257,500 per year.
 </job description>
+
+<resume>
+Michael Carlos
+https://ca.linkedin.com/in/mcarlos
+michael.carlos@wxyz.com
+
+Experience
+
+Founder
+AGI Labs Inc. Canada
+Aug 2014 - Present
+Vancouver, Canada Area
+• Developing biologically plausible alternatives to backpropagation and stochastic gradient descent.
+• Developing real-time, reinforcement-learning architectures that dynamically models its environment internally and self-organizes through evolutionary algorithms.
+Skills: Artificial Intelligence
+
+CTO and Head of AI R&D
+DataSolve Inc · Full-time
+Feb 2024 - Jan 2026
+Manila, National Capital Region, Philippines · Hybrid
+• Developed and applied AI technology in the Philippines.
+• Solutions included analytics, cybersecurity and voice/vision interfaces
+Skills: Artificial Intelligence (AI) · Python (Programming Language) · C++ · JavaScript
+
+Sr. Engineering Manager R&D
+CD PROJEKT RED · Permanent Full-time
+Nov 2021 - Oct 2023 · 2 yrs
+Vancouver, British Columbia, Canada
+• Sr. Engineering Manager at CD Projekt Red responsible for AI projects including Story Generation, Voice Cloning, Procedural Assets & Environments, AI-Driven Physics, Motion Generation & Vision Systems.
+• Prototyped AI applications for the next generation of games.
+• Producer on Cyberpunk 2077 and The Witcher 4 (pre-production).
+• Responsible for evaluating candidate coding tests (C++).
+• Managed the Vancouver Software Tool team.
+• Managed the Occupational Health & Safety team.
+Skills: Artificial Intelligence (AI) · Python (Programming Language) · C++ · Amazon Web Services (AWS) · 3D Graphics · Game Development · Agile Methodologies · Database Development · PHP · Project Management
+
+R&D Manager
+Wenco International Mining Systems · Permanent Full-time
+Apr 2021 - Oct 2021 · 7 mos
+Richmond, British Columbia, Canada
+• Managed a team of 18 developers. 
+• Developed fleet management software for autonomous vehicles in the mining industry.
+Skills: Artificial Intelligence (AI) · Architecture · C++ · Amazon Web Services (AWS) · Git · Linux · Docker · Terraform · JIRA · Confluence · Microsoft Azure
+
+Software Engineering Manager
+DDS Wireless · Contract Full-time
+Feb 2020 - Feb 2021 · 1 yr 1 mo
+Richmond, British Columbia, Canada
+• Managed a team that developed a booking, scheduling and dispatch system for paratransit.
+• Successfully delivered to NYCT in January 2021
+Skills: SQL · Amazon Web Services (AWS) · Database Development
+
+Software Development Manager
+Vivonet (Now part of Infor)
+Jul 2016 - Aug 2017 · 1 yr 2 mos
+Vancouver, Canada Area
+• Managed a team of 13 direct reports and 15 contractors
+• Ensured on-time and high-quality delivery of multiple, simultaneous projects
+Skills: SQL · Amazon Web Services (AWS) · Database Development · C++ · Java · JavaScript · PHP · iOS · Python (Programming Language)
+
+Director, Development
+QuickMobile (now part of Cvent)
+Jun 2012 - Apr 2014 · 1 yr 11 mos
+Vancouver, Canada Area
+• Managed a team of 35 Data and Web Services (LAMP), iOS, Android (Java), WP developers
+• Managed transition to custom Agile-based methodologies and processes
+• Contributed HR processes covering competency definition, career paths and training modules
+• Authored induction documents to quickly ramp up new hires in each of their respective fields
+• Planned organization structure and maintained production capacity to meet market demand
+Skills: SQL · Database Development
+
+Senior R&D Manager, Technology Solutions
+Nokia Corporation
+2008 - Nov 2010 · 2 yrs 11 mos
+• Spearheaded technology and innovation events in Canada
+• Analyzed internal and external intellectual property and participated in patent reviews
+• Applied predictions to product roadmaps that span multiple global teams
+• Managed the University Relations Team that consisted of several staff scientists and engineers
+
+Manager, Games R&D Integration and Verification
+Nokia Corporation
+2006 - 2008 · 2 yrs
+• Established a team of 12 integration engineers from scratch
+• Efficiently managed multi-site teams as well as global component factories and service providers
+• Led the first successful integration of the Nokia mobile store. 
+• Managed the integration and execution of one of the first modern mobile store purchases in history
+
+Manager, Software Certification – Games Platform
+Nokia Corporation
+2003 - 2006 · 3 yrs
+• Established a team of 25 engineers from scratch
+• Certified and published 50+ games to market on the NGage game deck
+• Worked closely with business leaders to create the first sustainable ecommerce core for Nokia
+• Created infrastructure, processes and tools from the ground up. Designed and implemented a custom test database.
+
+C++ Developer
+Nokia Corporation
+2001 - 2003 · 2 yrs
+• Defined technical requirements and created design documentation
+• Researched automation and unit testing tools and applied results to project
+• Implemented instant messaging and presence services
+• Co-founded the Nokia Aikido Club
+
+Software Developer
+V-Tech (Canada) Ltd
+2001 - 2001 · Less than a year
+• Programmed software for Helio platform (C/C++).
+• Maintained website and SDK before project ramp down.
+• Created the Helio Integrated Development Environment for the Windows platform. Implemented several applications, e.g. eReader.
+
+Software Developer
+Voyus Ltd. / GT Networks Inc.
+1997 - 2001 · 4 yrs
+• Programmed Lotus Notes Databases (Lotus Script)
+• Created Palm based applications (C/Intellisync).
+• Contracted by law firms to customize their databases.
+• Created Palm applications for e.g. the hospitality industry and construction industry.
+
+Volunteer work
+• Cloud Summit 
+• CENGN, a non-profit organization that helps Canadian technology companies commercialize new solutions.
+• Imaging the World, a non-profit organization that provides diagnostic imaging, primarily portable ultrasound, to underserved rural communities in countries like those in sub-Saharan Africa.
+
+Attended
+• Data science reading group
+• IP / Legal / entrepreneurial seminars
+• AI related events
+• Google, Amazon, Microsoft events
+• Hacker events
+</resume>
         '''
 
 import sounddevice as sd
