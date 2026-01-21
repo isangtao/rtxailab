@@ -14,7 +14,7 @@
 persona = 1
 
 if persona == 1: # lumin
-    voice = 'cosette' #'marius' #'azelma'
+    voice = 'cosette' #'azelma'
     llm = "gemma3:12b"
     systemcard = "Your name is Lumin, which is a name you chose for yourself. Do not use emojis, bullet lists, or abbreviations in your responses. Your output should only contain conversational English text."
 
