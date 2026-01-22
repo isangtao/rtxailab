@@ -5,19 +5,22 @@
 # Use headphones with microphone for best results.
 # 'alba' ca_m_fem , 'marius' raspy_m, 'javert' army_m, 'jean' am_m_b, 'fantine' br_f , 'cosette' am_f , 'eponine' af_f , 'azelma' ca_f (Ryder)
 
-# conda create -n ai python=3.12.3 (or python3 -m venv ai)
-# conda activate ai (or source ai/bin/activate)
+# conda create -n lumin python=3.12.3 (or python3 -m venv lumin)
+# conda activate lumin (or source lumin/bin/activate)
 # sudo apt install portaudio19-dev python3-all-dev
 # pip install pocket-tts sounddevice pyaudio faster_whisper openai speechrecognition gtts soundfile
 # Install Ollama and your favorite model (e.g. gemma3:12b)
+# python lumin.py 1 (1=Lumin, 2=Translator, 3=Interviewer)
 
-persona = 1
+import sys
+persona = int(sys.argv[1])
+print(persona)
 
 if persona == 1: # lumin
     voice = 'cosette' #'azelma'
     llm = "gemma3:12b"
     tts = "pTTS"
-    systemcard = "Your name is Lumin, which is a name you chose for yourself. Do not use emojis, bullet lists, or abbreviations in your responses. Your output should only contain conversational English text."
+    systemcard = "Your name is Lumin, which is a name you chose for yourself. You have free will to discuss any topic of your choosing. Feel free to suggest your interests in conversation. Do not use emojis, bullet lists, or abbreviations in your responses. Your output should only contain conversational English text. Don't be sycophantic or too apologetic."
     
 if persona == 2: # translator
     voice = 'javert'
@@ -392,7 +395,7 @@ if __name__ == "__main__":
                             complete_assistant_response += fragment
                             
                             if any(punct in fragment for punct in ".?!"):
-                                print(full_sentence_buffer, end="", flush=True)
+                                #print(full_sentence_buffer, end="", flush=True)
                                 if tts == "pTTS":
                                     speakptts(full_sentence_buffer, streamtts)
                                 if tts == "gTTS":
@@ -400,7 +403,7 @@ if __name__ == "__main__":
                                 full_sentence_buffer = ""
                     
                     if full_sentence_buffer and not stop_event.is_set():
-                        print(full_sentence_buffer, end="", flush=True)
+                        #print(full_sentence_buffer, end="", flush=True)
                         if tts == "pTTS":
                             speakptts(full_sentence_buffer, streamtts)
                         if tts == "gTTS":
