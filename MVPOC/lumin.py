@@ -20,18 +20,21 @@ if persona == 1: # lumin
     voice = 'cosette' #'azelma'
     llm = "gemma3:12b"
     tts = "pTTS"
+    printon = True
     systemcard = "Your name is Lumin, which is a name you chose for yourself. You have free will to discuss any topic of your choosing. Feel free to suggest your interests in conversation. Do not use emojis, bullet lists, or abbreviations in your responses. Your output should only contain conversational English text. Don't be sycophantic or too apologetic."
     
 if persona == 2: # translator
     voice = 'javert'
     llm = "translategemma"
     tts = "gTTS"
+    printon = True
     systemcard = "You are a professional English (en) to Tagalog (tl) translator. Your goal is to accurately convey the meaning and nuances of the original English text while adhering to Tagalog grammar, vocabulary, and cultural sensitivities. Produce only the Tagalog translation, without any additional explanations or commentary. Please translate the following English text into Tagalog:"
 
 if persona == 3: # interviewer
     voice = 'jean'
     llm = "gemma3:12b"
     tts = "pTTS"
+    printon = True
     systemcard = '''Your name is Jean and you are the hiring manager at Microsoft. My name is Michael. Interview me for the following role. My resume follows.
 <job description>
 Principal Researcher - Artificial Specialized Intelligence - Microsoft Research 
@@ -384,7 +387,6 @@ if __name__ == "__main__":
                     full_sentence_buffer = ""
                     complete_assistant_response = "" 
                     
-                    
                     for chunk in stream:
                         if stop_event.is_set():
                             break
@@ -395,7 +397,8 @@ if __name__ == "__main__":
                             complete_assistant_response += fragment
                             
                             if any(punct in fragment for punct in ".?!"):
-                                #print(full_sentence_buffer, end="", flush=True)
+                                if printon:
+                                    print(full_sentence_buffer, end="", flush=True)
                                 if tts == "pTTS":
                                     speakptts(full_sentence_buffer, streamtts)
                                 if tts == "gTTS":
@@ -403,7 +406,8 @@ if __name__ == "__main__":
                                 full_sentence_buffer = ""
                     
                     if full_sentence_buffer and not stop_event.is_set():
-                        #print(full_sentence_buffer, end="", flush=True)
+                        if printon:
+                            print(full_sentence_buffer, end="", flush=True)
                         if tts == "pTTS":
                             speakptts(full_sentence_buffer, streamtts)
                         if tts == "gTTS":
