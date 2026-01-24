@@ -101,7 +101,7 @@ Skills: Artificial Intelligence
 
 CTO and Head of AI R&D
 DataSolve Inc · Full-time
-Feb 2024 - Jan 2026
+Feb 2024 - Present
 Manila, National Capital Region, Philippines · Hybrid
 • Developed and applied AI technology in the Philippines.
 • Solutions included analytics, cybersecurity and voice/vision interfaces
