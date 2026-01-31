@@ -9,12 +9,12 @@
 # conda activate crumb (or source crumb/bin/activate)
 # sudo apt install build-essential portaudio19-dev python3-all-dev python3-pyaudio libasound2-dev
 # pip install pocket-tts sounddevice pyaudio faster_whisper openai speechrecognition gtts soundfile
-# Install Ollama and your favorite model
+# Install Ollama and your favorite model. gemma3:12b for GPU, gemma3 for laptop, gemma3:1b for Pi.
 # python lumin.py 1 (e.g. 0=HAL, 1=Lumin, 2=Translator, 3=AGI, 4=Interviewer)
 
 import sys
 persona = int(sys.argv[1])
-topmodel = "gemma3" # gemma3:12b for GPU, gemma3 for laptop, gemma3:1b for Pi.
+topmodel = "gemma3"
 
 if persona == 0: # HAL
     voice = 'alba'
