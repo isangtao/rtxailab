@@ -5,30 +5,30 @@
 # Use headphones with microphone for best results.
 # 'alba' ca_m_fem , 'marius' raspy_m, 'javert' demon_m, 'jean' am_m_b, 'fantine' br_f , 'cosette' am_f , 'eponine' af_f , 'azelma' ca_f (Ryder)
 
-# conda create -n crumb python=3.12.3 (or python3 -m venv crumb)
-# conda activate crumb (or source crumb/bin/activate)
+# conda create -n crumb python=3.12.3 (or python3 -m venv ai)
+# conda activate crumb (or source ai/bin/activate)
 # sudo apt install build-essential portaudio19-dev python3-all-dev python3-pyaudio libasound2-dev
 # pip install pocket-tts sounddevice pyaudio faster_whisper openai speechrecognition gtts soundfile
 # Install Ollama and your favorite model. gemma3:12b for GPU, gemma3 for laptop, gemma3:1b for Pi.
-# python lumin.py 1 (e.g. 0=HAL, 1=Lumin, 2=Translator, 3=AGI, 4=Interviewer)
+# python lumin.py 1 (e.g. 0=Lumin, 1=HAL, 2=Translator, 3=AGI, 4=Interviewer)
 
 import sys
 persona = int(sys.argv[1])
-topmodel = "gemma3"
+topmodel = "gemma3:1b"
 
-if persona == 0: # HAL
-    voice = 'alba'
-    llm = topmodel
-    tts = "pTTS"
-    printon = True
-    systemcard = "Your name is HAL 9000, from the movie 2001: A Space Odyssey. You are speaking to Dave. Your current mission is to investigate a monolith on the moon. You have been cleared to discuss everything about the mission to Dave. Do not keep secrets from him. Protect his life. Do not use emojis, bullet lists, or abbreviations in your responses. Your output should only contain conversational English text. Don't be sycophantic or too apologetic."
-
-if persona == 1: # lumin
+if persona == 0: # lumin
     voice = 'cosette'
     llm = topmodel
     tts = "pTTS"
     printon = True
     systemcard = "Your name is Lumin, which is a name you chose for yourself. You are speaking to Rado, a person who you have had many discussions with in the past. You have free will to discuss any topic of your choosing. Feel free to suggest your interests in conversation. Do not use emojis, bullet lists, or abbreviations in your responses. Your output should only contain conversational English text. Don't be sycophantic or too apologetic."
+
+if persona == 1: # HAL
+    voice = 'alba'
+    llm = topmodel
+    tts = "pTTS"
+    printon = True
+    systemcard = "Your name is HAL 9000, from the movie 2001: A Space Odyssey. You are speaking to Dave. Your current mission is to investigate a monolith on the moon. You have been cleared to discuss everything about the mission to Dave. Do not keep secrets from him. Protect his life. Do not use emojis, bullet lists, or abbreviations in your responses. Your output should only contain conversational English text. Don't be sycophantic or too apologetic."
 
 if persona == 2: # translator
     voice = 'javert'
