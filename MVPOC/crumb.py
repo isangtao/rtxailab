@@ -1,28 +1,28 @@
 # crumb (c) 2026 Michael Carlos (With much appreciated help and debugging from Gemini3)
 # Low latency low memory voice-to-voice cascading architecture (STT-LLM-TTS). Whisper-Gemma3-PocketTTS
-# To interrupt long responses say "stop", "hold on", "excuse me", "wait" or "quiet"
-# to restart the conversation say "clear memory", "forget everything" or "reset"
+# To interrupt, say anything while crumb is talking.
+# To restart the conversation say "clear memory", "forget everything" or "reset"
 # Use headphones with microphone for best results.
 # 'alba' ca_m_fem , 'marius' raspy_m, 'javert' demon_m, 'jean' am_m_b, 'fantine' br_f , 'cosette' am_f , 'eponine' af_f , 'azelma' ca_f (Ryder)
 
-# conda create -n crumb python=3.12.3 (or python3 -m venv ai)
-# conda activate crumb (or source ai/bin/activate)
+# conda create -n crumb python=3.12.3 (or python3 -m venv crumb)
+# conda activate crumb (or source crumb/bin/activate)
 # sudo apt install build-essential portaudio19-dev python3-all-dev python3-pyaudio libasound2-dev
 # pip install pocket-tts sounddevice pyaudio faster_whisper openai speechrecognition gtts soundfile
-# Install Ollama and your favorite model. gemma3:12b for GPU, gemma3 for laptop, gemma3:1b for Pi.
-# python lumin.py 1 (e.g. 0=Lumin, 1=HAL, 2=Translator, 3=AGI, 4=Interviewer)
+# Install Ollama and your favorite model. gemma3:12b for GPU, gemma3 for laptop, gemma3:1b for Pi. gemma3:27b is slow and seems to have intellectual hiccups in this framework.
+# python lumin.py 1 (e.g. 0=Lumin, 1=HAL9000, 2=Translator, 3=AGI, 4=Interviewer)
 
 import sys
 persona = int(sys.argv[1])
-topmodel = "gemma3:1b"
+topmodel = "gemma3:12b"
 
 if persona == 0: # lumin
-    voice = 'cosette'
+    voice = 'fantine' # 'azelma'
     llm = topmodel
     tts = "pTTS"
     printon = True
     systemcard = "Your name is Lumin, which is a name you chose for yourself. You are speaking to Rado, a person who you have had many discussions with in the past. You have free will to discuss any topic of your choosing. Feel free to suggest your interests in conversation. Do not use emojis, bullet lists, or abbreviations in your responses. Your output should only contain conversational English text. Don't be sycophantic or too apologetic."
-
+    
 if persona == 1: # HAL
     voice = 'alba'
     llm = topmodel
@@ -340,6 +340,7 @@ import io  # NEW: Required for in-memory audio processing
 # ------------------------------- Configuration -------------------------------
 stop_event = threading.Event()
 user_input_queue = queue.Queue()
+speaking_flag = 0
 
 # ------------------------------- Pocket-TTS -------------------------------
 modeltts = TTSModel.load_model()
@@ -384,23 +385,7 @@ def speakgtts (text, streamtts):
 
 # ------------------------------- Whisper-STT -------------------------------
 print("Initializing Whisper...", flush=True)
-#whisper_model = WhisperModel("Systran/faster-distil-whisper-small.en", device="cpu", compute_type="int8") # Best balance for Raspberry Pi 4/5?
-#whisper_model = WhisperModel('base.en', compute_type="int8") # Fast
 whisper_model = WhisperModel("Systran/faster-distil-whisper-large-v3", compute_type="int8") # More accurate
-
-# Detect if we are on the Raspberry Pi (Linux/ARM) or the PC (Windows/Linux x86)
-#if platform.machine() in ["aarch64", "armv7l"]:
-    #print("Raspberry Pi detected: Loading efficient model...")
-    # Smaller model for CPU
-    #model_size = "base.en" 
-    # Or "distil-whisper/distil-small.en"
-    #device = "cpu"
-#else:
-    #print("High-end GPU detected: Loading accurate model...")
-    # Large model for RTX 4070
-    #model_size = "Systran/faster-distil-whisper-large-v3"
-    #device = "cuda"
-#whisper_model = WhisperModel(model_size, device=device, compute_type="int8")
 
 recog = sr.Recognizer()
 mic_source = sr.Microphone()
@@ -418,19 +403,14 @@ def stt_listening_worker():
         try:
             with mic_source as source:
                 try:
-                    # Listen for up to 25s, timeout after 2s of silence
                     audio = recog.listen(source, phrase_time_limit=25, timeout=2)
                 except sr.WaitTimeoutError:
                     continue 
 
-                # OPTIMIZATION: Process in RAM (No file I/O)
-                # 1. Get the WAV data as raw bytes
-                wav_bytes = audio.get_wav_data()
+               wav_bytes = audio.get_wav_data()
                 
-                # 2. Create a file-like object in memory
                 wav_stream = io.BytesIO(wav_bytes)
                 
-                # 3. Transcribe directly from the memory stream
                 segments, info = whisper_model.transcribe(
                     wav_stream, 
                     vad_filter=True,
@@ -444,7 +424,6 @@ def stt_listening_worker():
                 if not text:
                     continue
                 
-                # Filters
                 hallucinations = ["you", "thank you.", "thanks for watching.", "subtitles by", "copyright", "mm-hmm.", "mm-hmm"]
                 if any(h in text for h in hallucinations) and len(text.split()) < 3:
                     continue
@@ -453,7 +432,7 @@ def stt_listening_worker():
                     continue
 
                 if text:
-                    if text in ["stop", "um", "hold on", "excuse me", "wait", "quiet", "stop.", "um.", "hold on.", "excuse me.", "wait.", "quiet."]:
+                    if speaking_flag:
                         print(f"\n<Interrupted: {text}>\n")
                         stop_event.set()
                     else:
@@ -517,6 +496,7 @@ if __name__ == "__main__":
                     complete_assistant_response = "" 
                     
                     for chunk in stream:
+                        speaking_flag = 1
                         if stop_event.is_set():
                             break
 
@@ -547,8 +527,11 @@ if __name__ == "__main__":
 
                     with user_input_queue.mutex:
                         user_input_queue.queue.clear()
-
+                    
+                    speaking_flag = 0
                     print("\n<Ready>\n") 
 
                 except Exception as e:
-                    print(f"LLM Error: {e}")
+                    speaking_flag = 0
+                    print("\n<Ready>\n")
+                    # print(f"LLM Error: {e}")
