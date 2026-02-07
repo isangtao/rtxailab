@@ -406,7 +406,7 @@ def stt_listening_worker():
                 except sr.WaitTimeoutError:
                     continue 
 
-               wav_bytes = audio.get_wav_data()
+                wav_bytes = audio.get_wav_data()
                 
                 wav_stream = io.BytesIO(wav_bytes)
                 
