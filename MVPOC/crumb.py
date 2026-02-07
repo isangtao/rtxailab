@@ -406,10 +406,14 @@ def stt_listening_worker():
                 except sr.WaitTimeoutError:
                     continue 
 
+                # OPTIMIZATION: Process in RAM (No file I/O)
+                # 1. Get the WAV data as raw bytes
                 wav_bytes = audio.get_wav_data()
                 
+                # 2. Create a file-like object in memory
                 wav_stream = io.BytesIO(wav_bytes)
                 
+                # 3. Transcribe directly from the memory stream
                 segments, info = whisper_model.transcribe(
                     wav_stream, 
                     vad_filter=True,
