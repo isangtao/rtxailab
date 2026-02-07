@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Converser (Ollama Fixed)</title>
+        <style>
+            body {font-family: sans-serif; color: #111111; padding: 2%; background-color: #eeeeee; max-width: 800px; margin: 0 auto;}
+            h2 {color: #111111}
+            .container {background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px grey}
+            button {font-family: sans-serif; background-color: #003300; color: #ffffff; border: none; padding: 15px 30px; border-radius: 5px; cursor: pointer; font-size: 18px; margin-bottom: 20px;}
+            button:disabled {background-color: #cccccc; cursor: not-allowed;}
+            button.stop {background-color: #8b0000;}
+            p {white-space: pre-wrap; word-wrap: break-word; line-height: 1.5;}
+            .subtitle { font-size: 0.8em; color: #555; margin-bottom: 20px;}
+            #status { font-weight: bold; margin-bottom: 15px; padding: 10px; border-radius: 4px; background-color: #e0e0e0;}
+            .label { font-weight: bold; margin-right: 5px; color: #444;}
+        </style>
+    </head>
+    <body>
+        <h2>Ollama Voice Chat</h2>        
+        <p class="subtitle">Fixed: Audio Autoplay & Memory Handling</p>
+        
+        <button id="startBtn" onclick="StartChat()">Start Voice Chat</button>
+        
+        <div class="container">
+            <div id="status">Status: Click 'Start Voice Chat' to begin.</div>
+            
+            <!-- Display current prompt -->
+            <p><span class="label">You:</span> <span id="prompt">...</span></p>
+            
+            <!-- Display current response -->
+            <p><span class="label">AI:</span> <span id="response">...</span></p>
+        </div>
+
+        <script>
+            // --- CONFIGURATION ---
+            const CONFIG = {
+                baseUrl: 'http://localhost:11434',
+                modelName: 'gemma3:27b', // Ensure this matches your Ollama model
+                apiKey: 'ollama'
+            };
+            // ---------------------
+
+            let recognition;
+            let speechtext = "";           
+            let conversationHistory = []; 
+            let controller; 
+            let isSpeaking = false;
+            let silenceTimer;
+            
+            // Fix for Chrome Garbage Collection bug: Store active utterances globally
+            window.utterances = [];
+
+            function StartChat() {
+                const startBtn = document.getElementById('startBtn');
+                startBtn.innerText = "Listening...";
+                startBtn.disabled = true;
+                
+                // Initialize speech engine on user click to unlock AudioContext
+                speechSynthesis.cancel();
+                
+                InitRecognition();
+            }
+
+            function InitRecognition() {
+                window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                
+                if (window.SpeechRecognition) {
+                    recognition = new SpeechRecognition();
+                    recognition.continuous = true; 
+                    recognition.interimResults = true;
+                    recognition.lang = 'en-US';
+
+                    recognition.onstart = () => {
+                        document.getElementById('status').innerText = "Status: Listening...";
+                        document.getElementById('status').style.backgroundColor = "#d4edda"; // Greenish
+                    };
+
+                    recognition.onresult = (event) => {
+                        const promptElem = document.getElementById('prompt');
+                        clearTimeout(silenceTimer);
+
+                        let myprompt = '';
+                        // Get the latest result
+                        const latestResult = event.results[event.results.length - 1];
+                        myprompt = latestResult[0].transcript;
+                        
+                        promptElem.innerText = myprompt;
+
+                        if (latestResult.isFinal) {
+                            // If the browser detects a definitive pause/end of sentence
+                            HandleInput(myprompt);
+                        } else {
+                            // Fallback timer for silence
+                            silenceTimer = setTimeout(() => {
+                                if (myprompt.trim().length > 0) {
+                                    HandleInput(myprompt);
+                                }
+                            }, 1500); // Wait 1.5s for silence
+                        }
+                    };
+
+                    recognition.onend = () => {
+                        // Only restart if we are NOT currently having the AI speak
+                        if (!isSpeaking) {
+                            try { recognition.start(); } catch(e) {}
+                        } else {
+                            document.getElementById('status').innerText = "Status: AI Speaking (Mic Paused)...";
+                            document.getElementById('status').style.backgroundColor = "#fff3cd"; // Yellowish
+                        }
+                    };
+
+                    try { recognition.start(); } catch(e) {}
+                } else {
+                    alert("Your browser does not support Speech Recognition. Please use Chrome.");
+                }
+            }
+
+            function HandleInput(myprompt) {
+                if (typeof controller !== 'undefined') controller.abort();
+                
+                // Stop listening while we process and speak
+                isSpeaking = true;
+                recognition.stop(); 
+                
+                Go(myprompt);
+            }
+                    
+            function Speak(text) {
+                return new Promise((resolve, reject) => {
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    
+                    // Select a voice (Optional: tries to pick a natural sounding one)
+                    const voices = speechSynthesis.getVoices();
+                    const preferredVoice = voices.find(v => v.name.includes("Google US English")) || voices[0];
+                    if (preferredVoice) utterance.voice = preferredVoice;
+
+                    // IMPORTANT: Prevent Garbage Collection
+                    window.utterances.push(utterance);
+
+                    utterance.onend = () => {
+                        // Remove from array to free memory
+                        window.utterances.shift();
+                        resolve();
+                    };
+                    
+                    utterance.onerror = (e) => {
+                        console.error("Speech error:", e);
+                        window.utterances.shift();
+                        resolve(); // Resolve anyway to keep flow going
+                    };
+
+                    speechSynthesis.speak(utterance);
+                });
+            }
+
+            async function Go(myprompt) {
+                document.getElementById("status").innerText = "Status: Thinking...";
+                document.getElementById("response").innerText = "";
+                speechtext = "";
+                
+                conversationHistory.push({ role: "user", content: myprompt });
+
+                controller = new AbortController();
+                
+                await streamChatCompletion(conversationHistory, controller);
+                
+                // Finished streaming. 
+                // Wait a moment for any final speech queue to finish, then restart Mic.
+                let checkInterval = setInterval(() => {
+                    if (!speechSynthesis.speaking && window.utterances.length === 0) {
+                        clearInterval(checkInterval);
+                        isSpeaking = false;
+                        document.getElementById('prompt').innerText = "...";
+                        InitRecognition(); // Restart Mic
+                    }
+                }, 500);
+            }
+
+            async function streamChatCompletion(messages, abortController) {
+                const url = `${CONFIG.baseUrl}/v1/chat/completions`;
+                const payload = {
+                    model: CONFIG.modelName,
+                    messages: messages,
+                    stream: true, 
+                };
+
+                let fullAssistantResponse = "";
+
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${CONFIG.apiKey}` },
+                        body: JSON.stringify(payload),
+                        signal: abortController.signal
+                    });
+
+                    if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+
+                    const reader = response.body.getReader();
+                    const decoder = new TextDecoder();
+                    let buffer = "";
+
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) break;
+
+                        buffer += decoder.decode(value, { stream: true });
+                        const lines = buffer.split("\n");
+                        buffer = lines.pop(); 
+
+                        for (const line of lines) {
+                            if (line.startsWith("data: ")) {
+                                const dataStr = line.substring(6).trim();
+                                if (dataStr === "[DONE]") continue;
+
+                                try {
+                                    const chunk = JSON.parse(dataStr);
+                                    const content = chunk?.choices?.[0]?.delta?.content;
+                                    if (content) {
+                                        fullAssistantResponse += content;
+                                        handleChunk(content); 
+                                    }
+                                } catch (e) { console.error(e); }
+                            }
+                        }
+                    }
+                    
+                    // Speak any remaining text in the buffer
+                    if (speechtext.trim().length > 0) {
+                        Speak(speechtext);
+                        speechtext = "";
+                    }
+
+                    conversationHistory.push({ role: "assistant", content: fullAssistantResponse });
+
+                } catch (error) {
+                    console.error(error);
+                    document.getElementById("response").innerText += ` [Error: ${error.message}]`;
+                }
+            }
+
+            function handleChunk(textChunk) {
+                const outputElement = document.getElementById("response");
+                outputElement.textContent += textChunk;
+                
+                speechtext += textChunk;
+                
+                // Split by sentence terminators to create natural pauses
+                // We regex for . ! ? followed by a space or end of string
+                if (/[.!?](\s|$)/.test(speechtext)) {
+                    Speak(speechtext);
+                    speechtext = "";
+                }  
+            }
+        </script>
+    </body>
+</html>
